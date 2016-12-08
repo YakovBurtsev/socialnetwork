@@ -16,6 +16,9 @@ public class User {
     private String email;
     private String password;
 
+    public User() {
+    }
+
     public Long getId() {
         return id;
     }
@@ -72,7 +75,28 @@ public class User {
         this.email = email;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public boolean isNew() {
+        return getId() == null;
+    }
+
+    @Override
+    public String toString() {
+        return "User(" +
+                "id=" + id +
+                ", name=" + name +
+                ", surname=" + surname +
+                ", birthday=" + birthday +
+                ", sex=" + sex +
+                ", city=" + city +
+                ", email=" + email +
+                ')';
     }
 }
