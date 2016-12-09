@@ -1,7 +1,6 @@
 package ru.yakovburtsev.socialnetwork.core.service;
 
 import ru.yakovburtsev.socialnetwork.core.model.User;
-import ru.yakovburtsev.socialnetwork.core.util.exception.NotFoundException;
 
 import java.util.List;
 
@@ -12,11 +11,14 @@ import java.util.List;
 public interface UserService {
     User save(User user);
 
-    void delete(Long id) throws NotFoundException;
+    // false if not found
+    boolean delete(Long id);
 
-    User get(Long id) throws NotFoundException;
+    //null if not found
+    User get(Long id);
 
-    User getByEmail(String email) throws NotFoundException;
+    //null if not found
+    User getByEmail(String email);
 
     void update(User user);
 
