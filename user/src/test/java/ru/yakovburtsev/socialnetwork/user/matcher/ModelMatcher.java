@@ -20,8 +20,13 @@ public class ModelMatcher<T> {
     private Comparator<T> comparator;
     private Class<T> entityClass;
 
-    public interface Comparator<T> {
-        boolean compare(T expected, T actual);
+    public ModelMatcher(Class<T> entityClass) {
+        this(entityClass, (Comparator<T>) DEFAULT_COMPARATOR);
+    }
+
+    public ModelMatcher(Class<T> entityClass, Comparator<T> comparator) {
+        this.entityClass = entityClass;
+        this.comparator = comparator;
     }
 
     public static <T> ModelMatcher<T> of(Class<T> entityClass) {
@@ -32,13 +37,25 @@ public class ModelMatcher<T> {
         return new ModelMatcher<>(entityClass, comparator);
     }
 
-    public ModelMatcher(Class<T> entityClass) {
-        this(entityClass, (Comparator<T>) DEFAULT_COMPARATOR);
+
+    public void assertEquals(T expected, T actual) {
+        Assert.assertEquals(wrap(expected), wrap(actual));
     }
 
-    public ModelMatcher(Class<T> entityClass, Comparator<T> comparator) {
-        this.entityClass = entityClass;
-        this.comparator = comparator;
+    public void assertCollectionEquals(Collection<T> expected, Collection<T> actual) {
+        Assert.assertEquals(wrap(expected), wrap(actual));
+    }
+
+    public Wrapper wrap(T entity) {
+        return new Wrapper(entity);
+    }
+
+    public List<Wrapper> wrap(Collection<T> collection) {
+        return collection.stream().map(this::wrap).collect(Collectors.toList());
+    }
+
+    public interface Comparator<T> {
+        boolean compare(T expected, T actual);
     }
 
     private class Wrapper {
@@ -60,23 +77,6 @@ public class ModelMatcher<T> {
         public String toString() {
             return String.valueOf(entity);
         }
-    }
-
-
-    public void assertEquals(T expected, T actual) {
-        Assert.assertEquals(wrap(expected), wrap(actual));
-    }
-
-    public void assertCollectionEquals(Collection<T> expected, Collection<T> actual) {
-        Assert.assertEquals(wrap(expected), wrap(actual));
-    }
-
-    public Wrapper wrap(T entity) {
-        return new Wrapper(entity);
-    }
-
-    public List<Wrapper> wrap(Collection<T> collection) {
-        return collection.stream().map(this::wrap).collect(Collectors.toList());
     }
 
 
