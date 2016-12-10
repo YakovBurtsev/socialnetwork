@@ -6,8 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import ru.yakovburtsev.socialnetwork.core.model.User;
 import ru.yakovburtsev.socialnetwork.core.service.UserService;
 
-import java.util.List;
-
 /**
  * Created by Yakov Burtsev on 05.12.2016.
  */
@@ -44,8 +42,4 @@ public class UserController {
         return service.getByEmail(email);
     }
 
-    public List<User> findUser(User lookingFor) {
-        //TODO
-        return null;
-    }
 }

@@ -7,9 +7,6 @@ import ru.yakovburtsev.socialnetwork.core.model.User;
 import ru.yakovburtsev.socialnetwork.core.service.UserService;
 import ru.yakovburtsev.socialnetwork.user.repository.UserRepository;
 
-import java.util.Collections;
-import java.util.List;
-
 import static ru.yakovburtsev.socialnetwork.user.util.UserUtil.prepareToSave;
 
 /**
@@ -54,9 +51,4 @@ public class UserServiceImpl implements UserService {
         repository.save(prepareToSave(user));
     }
 
-    @Override
-    public List<User> findUser(User lookingFor) {
-        //TODO реализовать поиск юзера
-        return Collections.emptyList();
-    }
 }

@@ -14,4 +14,6 @@ public interface FriendsService {
 
     void deleteFromFriends(Long userId, Long friendId);
 
+    // Returns empty list if not found
+    List<User> findUser(User userSample);
 }
