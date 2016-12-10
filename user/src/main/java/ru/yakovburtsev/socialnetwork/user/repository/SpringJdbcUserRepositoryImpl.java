@@ -25,6 +25,7 @@ public class SpringJdbcUserRepositoryImpl implements UserRepository {
     private static final String DELETE = "DELETE FROM users WHERE id=?";
     private static final String GET = "SELECT * FROM users WHERE id=?";
     private static final String GET_BY_EMAIL = "SELECT * FROM users WHERE email=?";
+    private static final String FIND_BY_NAME_AND_SURNAME = "SELECT * FROM users WHERE name LIKE :name AND surname LIKE :surname";
 
     private static final BeanPropertyRowMapper<User> ROW_MAPPER = BeanPropertyRowMapper.newInstance(User.class);
 
@@ -77,5 +78,16 @@ public class SpringJdbcUserRepositoryImpl implements UserRepository {
     public User getByEmail(String email) {
         List<User> users = jdbcTemplate.query(GET_BY_EMAIL, ROW_MAPPER, email);
         return DataAccessUtils.singleResult(users);
+    }
+
+    @Override
+    public List<User> findByNameAndSurname(String name, String surname) {
+        String sampleName = name.isEmpty() ? "%" : name;
+        String sampleSurname = surname.isEmpty() ? "%" : surname;
+
+        MapSqlParameterSource map = new MapSqlParameterSource()
+                .addValue("name", sampleName)
+                .addValue("surname", sampleSurname);
+        return namedParameterJdbcTemplate.query(FIND_BY_NAME_AND_SURNAME, map, ROW_MAPPER);
     }
 }

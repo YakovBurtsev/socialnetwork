@@ -11,6 +11,9 @@ import ru.yakovburtsev.socialnetwork.core.model.User;
 import ru.yakovburtsev.socialnetwork.core.service.UserService;
 import ru.yakovburtsev.socialnetwork.user.config.TestConfig;
 
+import java.util.Arrays;
+import java.util.Collections;
+
 import static ru.yakovburtsev.socialnetwork.user.UserTestData.*;
 
 
@@ -70,4 +73,30 @@ public class UserServiceImplTest {
         service.update(updated);
         MATCHER.assertEquals(updated, service.get(IVAN_ID));
     }
+
+    @Test
+    public void testFindByNameAndSurname() throws Exception {
+        MATCHER.assertCollectionEquals(Collections.singletonList(VASILIY), service.findByNameAndSurname("Vasiliy", "Ivanov"));
+    }
+
+    @Test
+    public void testFindByName() throws Exception {
+        MATCHER.assertCollectionEquals(Arrays.asList(VASILIY, OTHER_VASILIY), service.findByNameAndSurname("Vasiliy", ""));
+    }
+
+    @Test
+    public void testFindBySurname() throws Exception {
+        MATCHER.assertCollectionEquals(Arrays.asList(IVAN, VASILIY), service.findByNameAndSurname("", "Ivanov"));
+    }
+
+    @Test
+    public void testNotFindByNameAndSurname() throws Exception {
+        MATCHER.assertCollectionEquals(Collections.emptyList(), service.findByNameAndSurname("NotExists", "NotExists"));
+    }
+
+    @Test
+    public void testFindAll() throws Exception {
+        MATCHER.assertCollectionEquals(Arrays.asList(IVAN, PETR, VASILIY, OTHER_VASILIY), service.findByNameAndSurname("", ""));
+    }
+
 }

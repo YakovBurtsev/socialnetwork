@@ -2,6 +2,8 @@ package ru.yakovburtsev.socialnetwork.core.service;
 
 import ru.yakovburtsev.socialnetwork.core.model.User;
 
+import java.util.List;
+
 /**
  * The interface defines business logic of managing by objects of {@link User} class.
  */
@@ -19,5 +21,8 @@ public interface UserService {
     User getByEmail(String email);
 
     void update(User user);
+
+    // Returns empty list if not found
+    List<User> findByNameAndSurname(String name, String surname);
 
 }

@@ -7,6 +7,8 @@ import ru.yakovburtsev.socialnetwork.core.model.User;
 import ru.yakovburtsev.socialnetwork.core.service.UserService;
 import ru.yakovburtsev.socialnetwork.user.repository.UserRepository;
 
+import java.util.List;
+
 import static ru.yakovburtsev.socialnetwork.user.util.UserUtil.prepareToSave;
 
 /**
@@ -51,4 +53,10 @@ public class UserServiceImpl implements UserService {
         repository.save(prepareToSave(user));
     }
 
+    @Override
+    public List<User> findByNameAndSurname(String name, String surname) {
+        Assert.notNull(name, "name must not be null");
+        Assert.notNull(surname, "surname must not be null");
+        return repository.findByNameAndSurname(name, surname);
+    }
 }
