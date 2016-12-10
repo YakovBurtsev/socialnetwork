@@ -18,7 +18,7 @@ import java.util.List;
 
 @Repository
 @Transactional
-public class UserRepositorySpringJdbcImpl implements UserRepository {
+public class SpringJdbcUserRepositoryImpl implements UserRepository {
 
     private static final String UPDATE = "UPDATE users SET name=:name, surname=:surname, birthday=:birthday, " +
             "sex=:sex, city=:city, email=:email, password=:password WHERE id=:id";
@@ -33,7 +33,7 @@ public class UserRepositorySpringJdbcImpl implements UserRepository {
     private SimpleJdbcInsert insertUser;
 
     @Autowired
-    public UserRepositorySpringJdbcImpl(DataSource dataSource) {
+    public SpringJdbcUserRepositoryImpl(DataSource dataSource) {
         this.jdbcTemplate = new JdbcTemplate(dataSource);
         this.insertUser = new SimpleJdbcInsert(dataSource)
                 .withTableName("USERS")

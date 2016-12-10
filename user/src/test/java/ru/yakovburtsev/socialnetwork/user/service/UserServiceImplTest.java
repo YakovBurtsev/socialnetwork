@@ -18,7 +18,6 @@ import static ru.yakovburtsev.socialnetwork.user.UserTestData.*;
 @RunWith(SpringJUnit4ClassRunner.class)
 public class UserServiceImplTest {
 
-
     @Autowired
     protected UserService service;
 
