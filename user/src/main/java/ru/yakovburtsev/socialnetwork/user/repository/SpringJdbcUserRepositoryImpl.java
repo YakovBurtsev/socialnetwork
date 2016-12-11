@@ -17,7 +17,7 @@ import java.util.List;
 
 
 @Repository
-@Transactional
+@Transactional(readOnly = true)
 public class SpringJdbcUserRepositoryImpl implements UserRepository {
 
     private static final String UPDATE = "UPDATE users SET name=:name, surname=:surname, birthday=:birthday, " +
@@ -43,6 +43,7 @@ public class SpringJdbcUserRepositoryImpl implements UserRepository {
     }
 
     @Override
+    @Transactional
     public User save(User user) {
         MapSqlParameterSource map = new MapSqlParameterSource()
                 .addValue("id", user.getId())
@@ -64,6 +65,7 @@ public class SpringJdbcUserRepositoryImpl implements UserRepository {
     }
 
     @Override
+    @Transactional
     public boolean delete(Long id) {
         return jdbcTemplate.update(DELETE, id) != 0;
     }
