@@ -9,7 +9,7 @@ import java.util.Objects;
 
 /**
  * The class provides data for unit tests.
- * The same data also are used in populateDB.sql
+ * The same data also are used in populateUsersDb_H2.sql
  */
 public class UserTestData {
     private static final Logger LOG = LoggerFactory.getLogger(UserTestData.class);

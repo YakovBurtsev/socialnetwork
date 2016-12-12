@@ -4,7 +4,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DuplicateKeyException;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import ru.yakovburtsev.socialnetwork.core.model.User;
@@ -14,6 +14,8 @@ import ru.yakovburtsev.socialnetwork.user.config.TestConfig;
 import java.util.Arrays;
 import java.util.Collections;
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import static ru.yakovburtsev.socialnetwork.user.UserTestData.*;
 
 
@@ -32,7 +34,7 @@ public class UserServiceImplTest {
         MATCHER.assertEquals(newUser, service.get(created.getId()));
     }
 
-    @Test(expected = DuplicateKeyException.class)
+    @Test(expected = DataIntegrityViolationException.class)
     public void testDuplicateMailSave() throws Exception {
         User duplicate = new User.Builder().name("name").surname("surname").email(IVAN.getEmail()).password("password").build();
         service.save(duplicate);
@@ -40,12 +42,12 @@ public class UserServiceImplTest {
 
     @Test
     public void testDelete() throws Exception {
-        Assert.assertTrue(service.delete(PETR_ID));
+        assertTrue(service.delete(PETR_ID));
     }
 
     @Test
     public void testNotFoundDelete() throws Exception {
-        Assert.assertFalse(service.delete(START_SEQ - 1));
+        assertFalse(service.delete(START_SEQ - 1));
     }
 
     @Test

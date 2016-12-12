@@ -22,8 +22,8 @@ public class TestConfig {
         EmbeddedDatabaseBuilder builder = new EmbeddedDatabaseBuilder();
         return builder
                 .setType(EmbeddedDatabaseType.H2)
-                .addScript("initDB.sql")
-                .addScript("populateDB.sql")
+                .addScript("initUsersDb_H2.sql")
+                .addScript("populateUsersDb_H2.sql")
                 .build();
     }
 
