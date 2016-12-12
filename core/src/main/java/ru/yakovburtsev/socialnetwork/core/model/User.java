@@ -1,19 +1,57 @@
 package ru.yakovburtsev.socialnetwork.core.model;
 
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotEmpty;
+
+import javax.persistence.*;
+import java.io.Serializable;
 import java.time.LocalDate;
 
 /**
  * The class represents a user of the social network.
  */
 
-public class User {
+@NamedQueries({
+        @NamedQuery(name = User.DELETE, query = "DELETE FROM User u WHERE u.id=:id"),
+        @NamedQuery(name = User.GET_BY_EMAIL, query = "SELECT u FROM User u WHERE u.email=?1"),
+        @NamedQuery(name = User.GET_BY_NAME_AND_SURNAME, query = "SELECT u FROM User u WHERE u.name LIKE :name AND u.surname LIKE :surname")
+})
+@Entity
+@Table(name = "users", uniqueConstraints = {@UniqueConstraint(columnNames = "email", name = "users_email_unique")})
+public class User implements Serializable {
+    public static final String DELETE = "User.delete";
+    public static final String GET_BY_EMAIL = "User.getByEmail";
+    public static final String GET_BY_NAME_AND_SURNAME = "User.getByNameAndSurname";
+
+    @Id
+    @SequenceGenerator(name = "users_seq", sequenceName = "users_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "users_seq")
+    @Access(value = AccessType.PROPERTY)
     private Long id;
+
+    @Column(name = "name", nullable = false)
     private String name;
+
+    @Column(name = "surname", nullable = false)
     private String surname;
+
+    @Column(name = "birthday")
     private LocalDate birthday;
+
+    @Column(name = "sex")
+    @Enumerated(EnumType.STRING)
     private Sex sex;
+
+    @Column(name = "city")
     private String city;
+
+    @Column(name = "email", nullable = false, unique = true)
+    @Email
+    @NotEmpty
     private String email;
+
+    @Column(name = "password", nullable = false)
+    @NotEmpty
     private String password;
 
     private User() {
