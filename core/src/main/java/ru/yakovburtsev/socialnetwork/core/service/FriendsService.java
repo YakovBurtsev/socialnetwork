@@ -10,10 +10,10 @@ import java.util.List;
 public interface FriendsService {
     List<User> getFriends(Long userId);
 
-    void addFriend(Long userId, Long friendId);
+    // Returns true if success
+    boolean addFriend(Long userId, Long friendId);
 
-    void deleteFromFriends(Long userId, Long friendId);
+    // Returns true if success
+    boolean deleteFromFriends(Long userId, Long friendId);
 
-    // Returns empty list if not found
-    List<User> findUser(User userSample);
 }
