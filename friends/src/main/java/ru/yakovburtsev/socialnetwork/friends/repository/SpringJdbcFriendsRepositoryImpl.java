@@ -8,6 +8,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+import ru.yakovburtsev.socialnetwork.core.model.FriendInfo;
 
 import javax.sql.DataSource;
 import java.util.List;
@@ -19,10 +20,13 @@ import java.util.List;
 @Repository
 @Transactional(readOnly = true)
 public class SpringJdbcFriendsRepositoryImpl implements FriendsRepository {
-    private static final String GET_FRIENDS_IDS = "SELECT friend_id FROM friends WHERE id=?";
-    private static final String DELETE_FROM_FRIENDS = "DELETE FROM friends WHERE id=:id AND friend_id=:friend_id";
+    private static final String GET_FRIENDS_IDS = "SELECT friend_id FROM friends WHERE user_id=?";
+    private static final String GET_FRIENDS = "SELECT id, name, surname FROM users WHERE id IN (:ids)";
+    private static final String DELETE_FROM_FRIENDS = "DELETE FROM friends WHERE user_id=:user_id AND friend_id=:friend_id";
+    private static final String USER_ID = "user_id";
+    private static final String FRIEND_ID = "friend_id";
 
-    private static final BeanPropertyRowMapper<Long> ROW_MAPPER = BeanPropertyRowMapper.newInstance(Long.class);
+    private static final BeanPropertyRowMapper<FriendInfo> ROW_MAPPER = BeanPropertyRowMapper.newInstance(FriendInfo.class);
 
     private final JdbcTemplate jdbcTemplate;
     private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
@@ -38,25 +42,38 @@ public class SpringJdbcFriendsRepositoryImpl implements FriendsRepository {
     }
 
     @Override
-    public List<Long> getFriendsIds(Long userId) {
-        return jdbcTemplate.query(GET_FRIENDS_IDS, ROW_MAPPER, userId);
+    public List<FriendInfo> getFriends(Long userId) {
+        List<Long> ids = jdbcTemplate.queryForList(GET_FRIENDS_IDS, Long.class, userId);
+        MapSqlParameterSource map = new MapSqlParameterSource().addValue("ids", ids);
+        return namedParameterJdbcTemplate.query(GET_FRIENDS, map, ROW_MAPPER);
     }
 
     @Override
     @Transactional
     public boolean addFriend(Long userId, Long friendId) {
         MapSqlParameterSource map = new MapSqlParameterSource()
-                .addValue("id", userId)
-                .addValue("friend_id", friendId);
-        return insertFriend.execute(map) != 0;
+                .addValue(USER_ID, userId)
+                .addValue(FRIEND_ID, friendId);
+        boolean addToUserResult = insertFriend.execute(map) != 0;
+        map = new MapSqlParameterSource()
+                .addValue(USER_ID, friendId)
+                .addValue(FRIEND_ID, userId);
+        boolean addToFriendResult = insertFriend.execute(map) != 0;
+        return addToUserResult && addToFriendResult;
     }
 
     @Override
     @Transactional
     public boolean deleteFromFriends(Long userId, Long friendId) {
         MapSqlParameterSource map = new MapSqlParameterSource()
-                .addValue("id", userId)
-                .addValue("friend_id", friendId);
-        return namedParameterJdbcTemplate.update(DELETE_FROM_FRIENDS, map) != 0;
+                .addValue(USER_ID, userId)
+                .addValue(FRIEND_ID, friendId);
+        boolean deleteFromUserResult = namedParameterJdbcTemplate.update(DELETE_FROM_FRIENDS, map) != 0;
+
+        map = new MapSqlParameterSource()
+                .addValue(FRIEND_ID, userId)
+                .addValue(USER_ID, friendId);
+        boolean deleteFromFriendResult = namedParameterJdbcTemplate.update(DELETE_FROM_FRIENDS, map) != 0;
+        return deleteFromUserResult && deleteFromFriendResult;
     }
 }
