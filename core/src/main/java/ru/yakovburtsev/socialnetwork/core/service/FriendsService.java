@@ -1,6 +1,6 @@
 package ru.yakovburtsev.socialnetwork.core.service;
 
-import ru.yakovburtsev.socialnetwork.core.model.User;
+import ru.yakovburtsev.socialnetwork.core.model.FriendInfo;
 
 import java.util.List;
 
@@ -8,7 +8,7 @@ import java.util.List;
  * The interface defines service of managing by friends. User can get friends list, add a new friend or delete someone.
  */
 public interface FriendsService {
-    List<User> getFriends(Long userId);
+    List<FriendInfo> getFriends(Long userId);
 
     // Returns true if success
     boolean addFriend(Long userId, Long friendId);
