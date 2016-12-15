@@ -25,6 +25,8 @@ public class TestConfig {
                 .addScript("populateUsersDb_H2.sql")
                 .addScript("initFriendsDb_H2.sql")
                 .addScript("populateFriendsDb_H2.sql")
+                .addScript("initRequestsDb_H2.sql")
+                .addScript("populateRequestsDb_H2.sql")
                 .build();
     }
 

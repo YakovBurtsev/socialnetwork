@@ -10,13 +10,15 @@ import java.util.List;
  * Also a user can cancel a request.
  */
 public interface RequestService {
-    void create(Request request);
+    Request create(Request request);
 
-    void cancel(Long id);
+    Request get(Long id);
 
-    void accept(Long id);
+    boolean cancel(Long id);
 
-    void reject(Long id);
+    boolean accept(Long id);
+
+    boolean reject(Long id);
 
     List<Request> getSentRequests(Long userId);
 
