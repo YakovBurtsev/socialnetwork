@@ -24,7 +24,7 @@ import static ru.yakovburtsev.socialnetwork.user.UserTestData.*;
 public class UserServiceImplTest {
 
     @Autowired
-    protected UserService service;
+    private UserService service;
 
     @Test
     public void testSave() throws Exception {

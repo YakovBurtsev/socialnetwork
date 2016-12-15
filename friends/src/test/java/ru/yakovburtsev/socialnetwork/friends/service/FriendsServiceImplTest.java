@@ -19,7 +19,7 @@ import static ru.yakovburtsev.socialnetwork.friends.FriendsTestData.*;
 public class FriendsServiceImplTest {
 
     @Autowired
-    protected FriendsService service;
+    private FriendsService service;
 
     @Test
     public void getFriends() throws Exception {
