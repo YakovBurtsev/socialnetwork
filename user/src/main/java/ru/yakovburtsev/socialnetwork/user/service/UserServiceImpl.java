@@ -6,6 +6,7 @@ import org.springframework.util.Assert;
 import ru.yakovburtsev.socialnetwork.core.model.User;
 import ru.yakovburtsev.socialnetwork.core.service.UserService;
 import ru.yakovburtsev.socialnetwork.user.repository.UserRepository;
+import ru.yakovburtsev.socialnetwork.user.util.exception.UserNotFoundException;
 
 import java.util.List;
 
@@ -32,19 +33,30 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean delete(Long id) {
-        return repository.delete(id);
+    public void delete(Long id) {
+        boolean deleted = repository.delete(id);
+        if (!deleted) {
+            throw new UserNotFoundException("Not found user with id=" + id);
+        }
     }
 
     @Override
     public User get(Long id) {
-        return repository.get(id);
+        User user = repository.get(id);
+        if (user == null) {
+            throw new UserNotFoundException("Not found user with id=" + id);
+        }
+        return user;
     }
 
     @Override
     public User getByEmail(String email) {
         Assert.notNull(email, "email must not be null");
-        return repository.getByEmail(email);
+        User user = repository.getByEmail(email);
+        if (user == null) {
+            throw new UserNotFoundException("Not found user with email=" + email);
+        }
+        return user;
     }
 
     @Override

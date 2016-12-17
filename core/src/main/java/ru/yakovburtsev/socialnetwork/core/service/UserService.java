@@ -11,8 +11,7 @@ import java.util.List;
 public interface UserService {
     User save(User user);
 
-    // false if not found
-    boolean delete(Long id);
+    void delete(Long id);
 
     // null if not found
     User get(Long id);
