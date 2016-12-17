@@ -1,5 +1,6 @@
 package ru.yakovburtsev.socialnetwork.core.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -143,6 +144,7 @@ public class User implements Serializable {
         this.password = password;
     }
 
+    @JsonIgnore
     public boolean isNew() {
         return getId() == null;
     }

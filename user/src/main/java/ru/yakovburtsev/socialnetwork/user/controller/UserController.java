@@ -17,7 +17,7 @@ import java.net.URI;
  */
 
 @RestController
-@RequestMapping(value = UserController.REST_URL)
+@RequestMapping(value = UserController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
 public class UserController {
     static final String REST_URL = "/users";
     private final Logger log = LoggerFactory.getLogger(getClass());
