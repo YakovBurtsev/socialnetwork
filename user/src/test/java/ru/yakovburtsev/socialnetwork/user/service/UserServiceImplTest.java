@@ -9,7 +9,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import ru.yakovburtsev.socialnetwork.core.model.User;
 import ru.yakovburtsev.socialnetwork.core.service.UserService;
-import ru.yakovburtsev.socialnetwork.user.config.TestConfig;
+import ru.yakovburtsev.socialnetwork.user.config.SpringRootConfig;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -19,7 +19,7 @@ import static org.junit.Assert.assertTrue;
 import static ru.yakovburtsev.socialnetwork.user.UserTestData.*;
 
 
-@ContextConfiguration(classes = TestConfig.class)
+@ContextConfiguration(classes = SpringRootConfig.class)
 @RunWith(SpringJUnit4ClassRunner.class)
 public class UserServiceImplTest {
 
