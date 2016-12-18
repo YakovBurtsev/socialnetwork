@@ -15,11 +15,14 @@ import org.springframework.web.servlet.view.JstlView;
  */
 @Configuration
 @EnableWebMvc
-@ComponentScan(value = {"ru.yakovburtsev.socialnetwork.user.controller"})
+@ComponentScan(basePackages = {"ru.yakovburtsev.socialnetwork.user.controller"})
 public class SpringWebConfig extends WebMvcConfigurerAdapter {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/WEB-INF/jsp/**").addResourceLocations("/jsp/");
+        // all resources inside folder src/main/webapp/resources are mapped so they can be referred to inside JSP files
+        registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
+        // uses WebJars so Javascript and CSS libs can be declared as Maven dependencies (Bootstrap, jQuery...)
+        registry.addResourceHandler("/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/");
     }
 
     @Bean

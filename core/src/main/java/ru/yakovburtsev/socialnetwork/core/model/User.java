@@ -55,7 +55,7 @@ public class User implements Serializable {
     @NotEmpty
     private String password;
 
-    private User() {
+    public User() {
     }
 
     private User(Builder builder) {

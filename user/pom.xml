@@ -85,15 +85,20 @@
             <version>${spring.version}</version>
         </dependency>
 
+        <!--security-->
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-web</artifactId>
+            <version>${spring.security.version}</version>
+        </dependency>
         <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-config</artifactId>
             <version>${spring.security.version}</version>
         </dependency>
-
         <dependency>
             <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-core</artifactId>
+            <artifactId>spring-security-taglibs</artifactId>
             <version>${spring.security.version}</version>
         </dependency>
 
@@ -148,11 +153,44 @@
             <version>${javax.servlet.jsp-api.version}</version>
         </dependency>
 
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>jstl</artifactId>
+            <version>${javax.servlet.jstl.version}</version>
+        </dependency>
+
         <!--JSON-->
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
             <version>${jackson-json.version}</version>
+        </dependency>
+
+        <!-- Webjars (static dependencies distributed as JAR files) -->
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>bootstrap</artifactId>
+            <version>${webjars-bootstrap.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>jquery</artifactId>
+            <version>${webjars-jquery.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.webjars.bower</groupId>
+            <artifactId>datetimepicker</artifactId>
+            <version>${webjars-datetimepicker.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.webjars.bower</groupId>
+            <artifactId>noty</artifactId>
+            <version>${webjars-noty.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>datatables</artifactId>
+            <version>${webjars-datatables.version}</version>
         </dependency>
     </dependencies>
 </project>
