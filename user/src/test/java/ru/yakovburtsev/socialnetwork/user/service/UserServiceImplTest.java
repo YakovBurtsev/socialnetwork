@@ -10,12 +10,11 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import ru.yakovburtsev.socialnetwork.core.model.User;
 import ru.yakovburtsev.socialnetwork.core.service.UserService;
 import ru.yakovburtsev.socialnetwork.user.config.SpringRootConfig;
+import ru.yakovburtsev.socialnetwork.user.util.exception.UserNotFoundException;
 
 import java.util.Arrays;
 import java.util.Collections;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
 import static ru.yakovburtsev.socialnetwork.user.UserTestData.*;
 
 
@@ -42,12 +41,12 @@ public class UserServiceImplTest {
 
     @Test
     public void testDelete() throws Exception {
-        assertTrue(service.delete(PETR_ID));
+        service.delete(PETR_ID);
     }
 
-    @Test
+    @Test(expected = UserNotFoundException.class)
     public void testNotFoundDelete() throws Exception {
-        assertFalse(service.delete(START_SEQ - 1));
+        service.delete(START_SEQ - 1);
     }
 
     @Test
@@ -56,7 +55,7 @@ public class UserServiceImplTest {
         MATCHER.assertEquals(IVAN, user);
     }
 
-    @Test
+    @Test(expected = UserNotFoundException.class)
     public void testGetNotFound() throws Exception {
         Assert.assertNull(service.get(START_SEQ - 1));
     }
