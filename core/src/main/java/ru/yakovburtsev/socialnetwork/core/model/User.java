@@ -32,12 +32,12 @@ public class User implements Serializable {
     @Access(value = AccessType.PROPERTY)
     private Long id;
 
-    @NotEmpty
+    @NotEmpty(message = "Введите имя")
     @SafeHtml
     @Column(name = "name", nullable = false)
     private String name;
 
-    @NotEmpty
+    @NotEmpty(message = "Введите фамилию")
     @SafeHtml
     @Column(name = "surname", nullable = false)
     private String surname;
@@ -54,14 +54,13 @@ public class User implements Serializable {
 
     @SafeHtml
     @Column(name = "email", nullable = false, unique = true)
-    @Email
-    @NotEmpty
+    @Email(message = "Некорректный email")
+    @NotEmpty(message = "Введите email")
     private String email;
 
     @SafeHtml
-    @Length(min = 6)
+    @Length(min = 6, message = "Пароль должен содержать минимум 6 символов")
     @Column(name = "password", nullable = false)
-    @NotEmpty
     private String password;
 
     public User() {

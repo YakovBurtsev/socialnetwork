@@ -11,7 +11,7 @@
 <body>
 <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
     <div class="container">
-        <div class="navbar-header navbar-brand">Социальная сеть</div>
+        <a class="navbar-brand" href="login">Социальная сеть</a>
     </div>
 </div>
 <div class="jumbotron">
@@ -29,24 +29,28 @@
                         <label class="control-label col-xs-2">Имя</label>
                         <div class="col-xs-8">
                             <form:input path="name" id="name"/>
+                            <form:errors path="name" cssClass="error"/>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="control-label col-xs-2">Фамилия</label>
                         <div class="col-xs-8">
                             <form:input path="surname" id="name"/>
+                            <form:errors path="surname" cssClass="error"/>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="control-label col-xs-2">Email</label>
                         <div class="col-xs-8">
                             <form:input path="email" id="email"/>
+                            <form:errors path="email" cssClass="error"/>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="control-label col-xs-2">Пароль</label>
                         <div class="col-xs-8">
                             <form:password path="password" id="password"/>
+                            <form:errors path="password" cssClass="error"/>
                         </div>
                     </div>
 
