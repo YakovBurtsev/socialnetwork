@@ -2,7 +2,9 @@ package ru.yakovburtsev.socialnetwork.core.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
+import org.hibernate.validator.constraints.SafeHtml;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -30,9 +32,13 @@ public class User implements Serializable {
     @Access(value = AccessType.PROPERTY)
     private Long id;
 
+    @NotEmpty
+    @SafeHtml
     @Column(name = "name", nullable = false)
     private String name;
 
+    @NotEmpty
+    @SafeHtml
     @Column(name = "surname", nullable = false)
     private String surname;
 
@@ -46,11 +52,14 @@ public class User implements Serializable {
     @Column(name = "city")
     private String city;
 
+    @SafeHtml
     @Column(name = "email", nullable = false, unique = true)
     @Email
     @NotEmpty
     private String email;
 
+    @SafeHtml
+    @Length(min = 6)
     @Column(name = "password", nullable = false)
     @NotEmpty
     private String password;

@@ -8,7 +8,7 @@
 <body>
 <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
     <div class="container">
-        <div class="navbar-header navbar-brand">Social Network</div>
+        <div class="navbar-header navbar-brand">Социальная сеть</div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
                 <li>
@@ -17,9 +17,9 @@
                             <input type="text" placeholder="email" class="form-control" name='username'>
                         </div>
                         <div class="form-group">
-                            <input type="password" placeholder="password" class="form-control" name='password'>
+                            <input type="password" placeholder="пароль" class="form-control" name='password'>
                         </div>
-                        <button type="submit" class="btn btn-success">login</button>
+                        <button type="submit" class="btn btn-success">Войти</button>
                     </form:form>
                 </li>
             </ul>
@@ -31,7 +31,7 @@
     <div class="container">
         <p></p>
 
-        <p><a class="btn btn-primary btn-lg" role="button" href="register">register</a></p>
+        <p><a class="btn btn-primary btn-lg" role="button" href="register">Регистрация</a></p>
         <p>Стек технологий:
             <a href="http://projects.spring.io/spring-security/">Spring Security</a>,
             <a href="http://docs.spring.io/spring/docs/current/spring-framework-reference/html/mvc.html">Spring MVC</a>,
