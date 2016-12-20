@@ -39,6 +39,7 @@ public class UserTestData {
                             && Objects.equals(expected.getCity(), actual.getCity())
                             && Objects.equals(expected.getEmail(), actual.getEmail())
                             && Objects.equals(expected.getPassword(), actual.getPassword())
+                            && Objects.equals(expected.getRoles(), actual.getRoles())
                     )
     );
 
