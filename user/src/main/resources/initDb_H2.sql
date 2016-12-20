@@ -1,3 +1,4 @@
+DROP TABLE IF EXISTS user_roles;
 DROP TABLE IF EXISTS users;
 DROP SEQUENCE IF EXISTS users_seq;
 
@@ -13,4 +14,12 @@ CREATE TABLE users
   city     VARCHAR,
   email    VARCHAR NOT NULL UNIQUE,
   password VARCHAR NOT NULL
+);
+
+CREATE TABLE user_roles
+(
+  user_id BIGINT NOT NULL,
+  role    VARCHAR NOT NULL,
+  CONSTRAINT user_roles_idx UNIQUE (user_id, role),
+  FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE
 );

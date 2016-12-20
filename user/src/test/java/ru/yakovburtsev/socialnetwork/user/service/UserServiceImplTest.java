@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import ru.yakovburtsev.socialnetwork.core.model.Role;
 import ru.yakovburtsev.socialnetwork.core.model.User;
 import ru.yakovburtsev.socialnetwork.core.service.UserService;
 import ru.yakovburtsev.socialnetwork.user.config.SpringRootConfig;
@@ -27,7 +28,12 @@ public class UserServiceImplTest {
 
     @Test
     public void testSave() throws Exception {
-        User newUser = new User.Builder().name("name").surname("surname").email("new@gmail.com").password("password").build();
+        User newUser = new User.Builder()
+                .name("name")
+                .surname("surname")
+                .email("new@gmail.com")
+                .password("password")
+                .roles(Role.ROLE_USER).build();
         User created = service.save(newUser);
         newUser.setId(created.getId());
         MATCHER.assertEquals(newUser, service.get(created.getId()));
@@ -35,7 +41,12 @@ public class UserServiceImplTest {
 
     @Test(expected = DataIntegrityViolationException.class)
     public void testDuplicateMailSave() throws Exception {
-        User duplicate = new User.Builder().name("name").surname("surname").email(IVAN.getEmail()).password("password").build();
+        User duplicate = new User.Builder()
+                .name("name")
+                .surname("surname")
+                .email(IVAN.getEmail())
+                .password("password")
+                .build();
         service.save(duplicate);
     }
 
@@ -77,27 +88,42 @@ public class UserServiceImplTest {
 
     @Test
     public void testFindByNameAndSurname() throws Exception {
-        MATCHER.assertCollectionEquals(Collections.singletonList(VASILIY), service.findByNameAndSurname("Vasiliy", "Ivanov"));
+        MATCHER.assertCollectionEquals(
+                Collections.singletonList(VASILIY),
+                service.findByNameAndSurname("Vasiliy", "Ivanov")
+        );
     }
 
     @Test
     public void testFindByName() throws Exception {
-        MATCHER.assertCollectionEquals(Arrays.asList(VASILIY, OTHER_VASILIY), service.findByNameAndSurname("Vasiliy", ""));
+        MATCHER.assertCollectionEquals(
+                Arrays.asList(VASILIY, OTHER_VASILIY),
+                service.findByNameAndSurname("Vasiliy", "")
+        );
     }
 
     @Test
     public void testFindBySurname() throws Exception {
-        MATCHER.assertCollectionEquals(Arrays.asList(IVAN, VASILIY), service.findByNameAndSurname("", "Ivanov"));
+        MATCHER.assertCollectionEquals(
+                Arrays.asList(IVAN, VASILIY),
+                service.findByNameAndSurname("", "Ivanov")
+        );
     }
 
     @Test
     public void testNotFindByNameAndSurname() throws Exception {
-        MATCHER.assertCollectionEquals(Collections.emptyList(), service.findByNameAndSurname("NotExists", "NotExists"));
+        MATCHER.assertCollectionEquals(
+                Collections.emptyList(),
+                service.findByNameAndSurname("NotExists", "NotExists")
+        );
     }
 
     @Test
     public void testFindAll() throws Exception {
-        MATCHER.assertCollectionEquals(Arrays.asList(IVAN, PETR, VASILIY, OTHER_VASILIY), service.findByNameAndSurname("", ""));
+        MATCHER.assertCollectionEquals(
+                Arrays.asList(IVAN, PETR, VASILIY, OTHER_VASILIY, ADMIN),
+                service.findByNameAndSurname("", "")
+        );
     }
 
 }

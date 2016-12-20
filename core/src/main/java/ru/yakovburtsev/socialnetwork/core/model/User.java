@@ -68,6 +68,7 @@ public class User implements Serializable {
     @Column(name = "password", nullable = false)
     private String password;
 
+    @JsonIgnore
     @Enumerated(EnumType.STRING)
     @CollectionTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"))
     @Column(name = "role")
@@ -86,7 +87,7 @@ public class User implements Serializable {
         city = builder.city;
         email = builder.email;
         password = builder.password;
-        roles = builder.roles;
+        this.setRoles(builder.roles);
     }
 
     public User(User u) {
