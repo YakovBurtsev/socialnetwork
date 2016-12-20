@@ -5,10 +5,15 @@ import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.hibernate.validator.constraints.SafeHtml;
+import org.springframework.util.CollectionUtils;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.EnumSet;
+import java.util.Set;
 
 /**
  * The class represents a user of the social network.
@@ -63,6 +68,12 @@ public class User implements Serializable {
     @Column(name = "password", nullable = false)
     private String password;
 
+    @Enumerated(EnumType.STRING)
+    @CollectionTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"))
+    @Column(name = "role")
+    @ElementCollection(fetch = FetchType.EAGER)
+    private Set<Role> roles;
+
     public User() {
     }
 
@@ -75,6 +86,7 @@ public class User implements Serializable {
         city = builder.city;
         email = builder.email;
         password = builder.password;
+        roles = builder.roles;
     }
 
     public User(User u) {
@@ -86,6 +98,7 @@ public class User implements Serializable {
         city = u.getCity();
         email = u.getEmail();
         password = u.getPassword();
+        roles = u.getRoles();
     }
 
     public Long getId() {
@@ -152,6 +165,14 @@ public class User implements Serializable {
         this.password = password;
     }
 
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Collection<Role> roles) {
+        this.roles = CollectionUtils.isEmpty(roles) ? Collections.emptySet() : EnumSet.copyOf(roles);
+    }
+
     @JsonIgnore
     public boolean isNew() {
         return getId() == null;
@@ -159,15 +180,16 @@ public class User implements Serializable {
 
     @Override
     public String toString() {
-        return "User(" +
+        return "User{" +
                 "id=" + id +
-                ", name=" + name +
-                ", surname=" + surname +
+                ", name='" + name + '\'' +
+                ", surname='" + surname + '\'' +
                 ", birthday=" + birthday +
                 ", sex=" + sex +
-                ", city=" + city +
-                ", email=" + email +
-                ')';
+                ", city='" + city + '\'' +
+                ", email='" + email + '\'' +
+                ", roles=" + roles +
+                '}';
     }
 
     public static class Builder {
@@ -179,6 +201,7 @@ public class User implements Serializable {
         private String city;
         private String email;
         private String password;
+        private Set<Role> roles;
 
         public Builder id(Long id) {
             this.id = id;
@@ -217,6 +240,16 @@ public class User implements Serializable {
 
         public Builder password(String password) {
             this.password = password;
+            return this;
+        }
+
+        public Builder roles(Role role, Role ... roles) {
+            this.roles = EnumSet.of(role, roles);
+            return this;
+        }
+
+        public Builder roles(Set<Role> roles) {
+            this.roles = roles;
             return this;
         }
 
