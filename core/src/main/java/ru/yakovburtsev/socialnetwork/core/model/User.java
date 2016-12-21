@@ -5,6 +5,7 @@ import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.hibernate.validator.constraints.SafeHtml;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.util.CollectionUtils;
 
 import javax.persistence.*;
@@ -47,6 +48,7 @@ public class User implements Serializable {
     @Column(name = "surname", nullable = false)
     private String surname;
 
+    @DateTimeFormat(pattern = "dd.MM.yyyy")
     @Column(name = "birthday")
     private LocalDate birthday;
 

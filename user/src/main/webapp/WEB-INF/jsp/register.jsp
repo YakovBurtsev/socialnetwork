@@ -7,6 +7,7 @@
 
 <html>
 <jsp:include page="fragments/headTag.jsp"/>
+<link rel="stylesheet" href="webjars/datetimepicker/2.4.7/jquery.datetimepicker.css">
 
 <body>
 <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -35,8 +36,29 @@
                     <div class="form-group">
                         <label class="control-label col-xs-2">Фамилия</label>
                         <div class="col-xs-8">
-                            <form:input path="surname" id="name"/>
+                            <form:input path="surname" id="surname"/>
                             <form:errors path="surname" cssClass="error"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-2">Дата рождения</label>
+                        <div class="col-xs-8">
+                            <form:input path="birthday" type="text" name="birthday" id="birthday"/>
+                            <form:errors path="birthday" cssClass="error"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-2">Пол</label>
+                        <div class="col-xs-8">
+                            <form:radiobutton path="sex" id="sex-male" value="MALE" label="Мужской"/>
+                            <form:radiobutton path="sex" id="sex-female" value="FEMALE" label="Женский"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-2">Город</label>
+                        <div class="col-xs-8">
+                            <form:input path="city" id="city"/>
+                            <form:errors path="city" cssClass="error"/>
                         </div>
                     </div>
                     <div class="form-group">
@@ -67,4 +89,17 @@
 
 <jsp:include page="fragments/footer.jsp"/>
 </body>
+
+<script type="text/javascript" src="webjars/datetimepicker/2.4.7/build/jquery.datetimepicker.full.min.js"></script>
+<script type="text/javascript">
+    $(function () {
+        $.datetimepicker.setLocale('ru');
+
+        $('#birthday').datetimepicker({
+            timepicker: false,
+            format: 'Y-m-d',
+            formatDate: 'Y-m-d'
+        });
+    });
+</script>
 </html>
