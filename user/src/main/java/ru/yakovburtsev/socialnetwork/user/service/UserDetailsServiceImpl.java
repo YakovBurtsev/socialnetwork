@@ -5,7 +5,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 import ru.yakovburtsev.socialnetwork.core.service.UserService;
-import ru.yakovburtsev.socialnetwork.user.auth.UserDetailsImpl;
+import ru.yakovburtsev.socialnetwork.user.auth.AuthorizedUser;
 
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
@@ -19,6 +19,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String email) {
-        return new UserDetailsImpl(userService.getByEmail(email));
+        return new AuthorizedUser(userService.getByEmail(email));
     }
 }
