@@ -8,9 +8,11 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import ru.yakovburtsev.socialnetwork.core.model.Role;
 import ru.yakovburtsev.socialnetwork.core.model.User;
 
 import javax.validation.Valid;
+import java.util.EnumSet;
 
 /**
  * The class if root controller where users will register or login.
@@ -19,7 +21,7 @@ import javax.validation.Valid;
 public class RootController {
 
     @Autowired
-    private UserController userController;
+    private AdminController adminController;
 
     @GetMapping(value = {"/", "/login"})
     public String login(ModelMap model) {
@@ -36,9 +38,10 @@ public class RootController {
     public String saveRegister(@Valid User user, BindingResult result) {
         if (!result.hasErrors()) {
             try {
-                userController.create(user);
+                user.setRoles(EnumSet.of(Role.ROLE_USER));
+                adminController.create(user);
                 return "redirect:login";
-            } catch (DataIntegrityViolationException ex) {
+            } catch (DataIntegrityViolationException e) {
                 result.addError(new FieldError("user", "email", "Пользователь с таким email уже зарегистрирован"));
             }
         }
