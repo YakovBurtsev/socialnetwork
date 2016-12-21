@@ -20,6 +20,7 @@ public class WebApp implements WebApplicationInitializer {
         rootContext.register(SpringRootConfig.class);
         rootContext.register(SpringWebConfig.class);
         rootContext.register(SpringDbConfig.class);
+        rootContext.register(SpringSecurityConfig.class);
         rootContext.setServletContext(servletContext);
 
         ServletRegistration.Dynamic servlet = servletContext.addServlet("dispatcher", new DispatcherServlet(rootContext));

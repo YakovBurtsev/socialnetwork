@@ -17,8 +17,8 @@ public class SpringDbConfig {
         EmbeddedDatabaseBuilder builder = new EmbeddedDatabaseBuilder();
         return builder
                 .setType(EmbeddedDatabaseType.H2)
-                .addScript("initUsersDb_H2.sql")
-                .addScript("populateUsersDb_H2.sql")
+                .addScript("initDb_H2.sql")
+                .addScript("populateDb_H2.sql")
                 .build();
     }
 

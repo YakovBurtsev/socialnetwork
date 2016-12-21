@@ -14,7 +14,7 @@
                 <li>
                     <form:form class="navbar-form" role="form" action="spring_security_check" method="post">
                         <div class="form-group">
-                            <input type="text" placeholder="email" class="form-control" name='username'>
+                            <input type="text" placeholder="email" class="form-control" name='email'>
                         </div>
                         <div class="form-group">
                             <input type="password" placeholder="пароль" class="form-control" name='password'>
