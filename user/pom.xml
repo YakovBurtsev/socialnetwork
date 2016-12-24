@@ -60,6 +60,13 @@
             <version>${h2.version}</version>
         </dependency>
 
+        <!--postgresql-->
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>${postgresql.version}</version>
+        </dependency>
+
         <!--Spring-->
         <dependency>
             <groupId>org.springframework</groupId>

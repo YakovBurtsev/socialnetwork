@@ -1,30 +1,28 @@
 package ru.yakovburtsev.socialnetwork.user.config;
 
-import org.h2.tools.Server;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
-import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.env.Environment;
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
+import javax.annotation.Resource;
 import javax.sql.DataSource;
-import java.sql.SQLException;
 
 @Configuration
+@PropertySource("classpath:db.properties")
 public class SpringDbConfig {
+
+    @Resource
+    Environment env;
+
     @Bean
     public DataSource dataSource() {
-        // no need shutdown, EmbeddedDatabaseFactoryBean will take care of this
-        EmbeddedDatabaseBuilder builder = new EmbeddedDatabaseBuilder();
-        return builder
-                .setType(EmbeddedDatabaseType.H2)
-                .addScript("initDb_H2.sql")
-                .addScript("populateDb_H2.sql")
-                .build();
-    }
-
-    // Start WebServer, access http://localhost:8082
-    @Bean(initMethod = "start", destroyMethod = "stop")
-    public Server startDBManager() throws SQLException {
-        return Server.createWebServer();
+        DriverManagerDataSource dataSource = new DriverManagerDataSource();
+        dataSource.setDriverClassName(env.getProperty("database.driverClassName"));
+        dataSource.setPassword(env.getProperty("database.password"));
+        dataSource.setUrl(env.getProperty("database.url"));
+        dataSource.setUsername(env.getProperty("database.username"));
+        return dataSource;
     }
 }
