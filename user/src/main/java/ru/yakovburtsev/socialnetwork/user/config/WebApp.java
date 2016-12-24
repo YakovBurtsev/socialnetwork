@@ -1,18 +1,23 @@
 package ru.yakovburtsev.socialnetwork.user.config;
 
+import org.springframework.security.web.context.AbstractSecurityWebApplicationInitializer;
 import org.springframework.web.WebApplicationInitializer;
+import org.springframework.web.context.ContextLoaderListener;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
+import org.springframework.web.filter.DelegatingFilterProxy;
 import org.springframework.web.servlet.DispatcherServlet;
 
-import javax.servlet.ServletContext;
-import javax.servlet.ServletException;
-import javax.servlet.ServletRegistration;
+import javax.servlet.*;
+import java.util.EnumSet;
 
 /**
  * The class is an initializer which in this case acts as replacement of any spring configuration
  * defined in web.xml
  */
 public class WebApp implements WebApplicationInitializer {
+
+    private static final String DISPATCHER_SERVLET_NAME = "dispatcher";
+    private static final String DISPATCHER_SERVLET_MAPPING = "/";
 
     @Override
     public void onStartup(ServletContext servletContext) throws ServletException {
@@ -21,11 +26,18 @@ public class WebApp implements WebApplicationInitializer {
         rootContext.register(SpringWebConfig.class);
         rootContext.register(SpringDbConfig.class);
         rootContext.register(SpringSecurityConfig.class);
-        rootContext.setServletContext(servletContext);
 
-        ServletRegistration.Dynamic servlet = servletContext.addServlet("dispatcher", new DispatcherServlet(rootContext));
-
+        ServletRegistration.Dynamic servlet = servletContext.addServlet(
+                DISPATCHER_SERVLET_NAME, new DispatcherServlet(rootContext)
+        );
         servlet.setLoadOnStartup(1);
-        servlet.addMapping("/");
+        servlet.addMapping(DISPATCHER_SERVLET_MAPPING);
+
+        FilterRegistration.Dynamic securityFilter = servletContext.addFilter(
+                AbstractSecurityWebApplicationInitializer.DEFAULT_FILTER_NAME, DelegatingFilterProxy.class
+        );
+        securityFilter.addMappingForUrlPatterns(EnumSet.allOf(DispatcherType.class), false, "/*");
+
+        servletContext.addListener(new ContextLoaderListener(rootContext));
     }
 }
