@@ -48,7 +48,7 @@ public class User implements Serializable {
     @Column(name = "surname", nullable = false)
     private String surname;
 
-    @DateTimeFormat(pattern = "dd.MM.yyyy")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(name = "birthday")
     private LocalDate birthday;
 
