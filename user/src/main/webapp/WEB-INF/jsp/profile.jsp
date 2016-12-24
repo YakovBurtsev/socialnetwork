@@ -31,7 +31,12 @@
                                 </tr>
                                 <tr>
                                     <td>Пол</td>
-                                    <td>${user.sex}</td>
+                                    <c:if test="${user.sex == 'MALE'}">
+                                        <td>Мужской</td>
+                                    </c:if>
+                                    <c:if test="${user.sex == 'FEMALE'}">
+                                        <td>Женский</td>
+                                    </c:if>
                                 </tr>
                                 <tr>
                                     <td>Город</td>
