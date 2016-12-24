@@ -118,12 +118,4 @@ public class UserServiceImplTest {
         );
     }
 
-    @Test
-    public void testFindAll() throws Exception {
-        MATCHER.assertCollectionEquals(
-                Arrays.asList(IVAN, PETR, VASILIY, OTHER_VASILIY, ADMIN),
-                service.findByNameAndSurname("", "")
-        );
-    }
-
 }

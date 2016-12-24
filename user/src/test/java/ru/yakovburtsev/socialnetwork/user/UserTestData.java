@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import ru.yakovburtsev.socialnetwork.core.model.Role;
 import ru.yakovburtsev.socialnetwork.core.model.User;
 import ru.yakovburtsev.socialnetwork.user.matcher.ModelMatcher;
+import ru.yakovburtsev.socialnetwork.user.util.PasswordUtil;
 
 import java.util.Objects;
 
@@ -20,9 +21,8 @@ public class UserTestData {
     public static final long PETR_ID = START_SEQ + 1;
     private static final long VASILIY_ID = START_SEQ + 2;
     private static final long OTHER_VASILIY_ID = START_SEQ + 3;
-    private static final long ADMIN_ID = START_SEQ + 4;
 
-    public static User IVAN = new User.Builder()
+    public static final User IVAN = new User.Builder()
             .id(IVAN_ID).name("Ivan")
             .surname("Ivanov")
             .email("ivan@yandex.ru")
@@ -30,7 +30,7 @@ public class UserTestData {
             .roles(Role.ROLE_USER)
             .build();
 
-    public static User PETR = new User.Builder()
+    public static final User PETR = new User.Builder()
             .id(PETR_ID)
             .name("Petr")
             .surname("Petrov")
@@ -39,7 +39,7 @@ public class UserTestData {
             .roles(Role.ROLE_USER)
             .build();
 
-    public static User VASILIY = new User.Builder()
+    public static final User VASILIY = new User.Builder()
             .id(VASILIY_ID)
             .name("Vasiliy")
             .surname("Ivanov")
@@ -48,36 +48,37 @@ public class UserTestData {
             .roles(Role.ROLE_USER)
             .build();
 
-    public static User OTHER_VASILIY = new User.Builder()
+    public static final User OTHER_VASILIY = new User.Builder()
             .id(OTHER_VASILIY_ID)
             .name("Vasiliy")
             .surname("Novikov")
             .email("novikov@gmail.com")
             .password("novikov123")
-            .roles(Role.ROLE_USER)
+            .roles(Role.ROLE_ADMIN)
             .build();
 
-    public static User ADMIN = new User.Builder()
-            .id(ADMIN_ID)
-            .name("Admin")
-            .surname("Admin")
-            .email("admin@gmail.com")
-            .password("admin123")
-            .roles(Role.ROLE_ADMIN, Role.ROLE_USER)
-            .build();
 
     public static final ModelMatcher<User> MATCHER = ModelMatcher.of(User.class,
             (expected, actual) -> expected == actual ||
-                    (Objects.equals(expected.getId(), actual.getId())
+                    (comparePassword(expected.getPassword(), actual.getPassword())
+                            && Objects.equals(expected.getId(), actual.getId())
                             && Objects.equals(expected.getName(), actual.getName())
                             && Objects.equals(expected.getSurname(), actual.getSurname())
                             && Objects.equals(expected.getBirthday(), actual.getBirthday())
                             && Objects.equals(expected.getSex(), actual.getSex())
                             && Objects.equals(expected.getCity(), actual.getCity())
                             && Objects.equals(expected.getEmail(), actual.getEmail())
-                            && Objects.equals(expected.getPassword(), actual.getPassword())
                             && Objects.equals(expected.getRoles(), actual.getRoles())
                     )
     );
 
+    private static boolean comparePassword(String rawOrEncodedPassword, String password) {
+        if (PasswordUtil.isEncoded(rawOrEncodedPassword)) {
+            return rawOrEncodedPassword.equals(password);
+        } else if (!PasswordUtil.isMatch(rawOrEncodedPassword, password)) {
+            LOG.error("Password " + password + " doesn't match encoded " + password);
+            return false;
+        }
+        return true;
+    }
 }

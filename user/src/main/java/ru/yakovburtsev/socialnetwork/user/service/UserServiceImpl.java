@@ -52,7 +52,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getByEmail(String email) {
         Assert.notNull(email, "email must not be null");
-        User user = repository.getByEmail(email);
+        User user = repository.getByEmail(email.toLowerCase());
         if (user == null) {
             throw new UserNotFoundException("Not found user with email=" + email);
         }
