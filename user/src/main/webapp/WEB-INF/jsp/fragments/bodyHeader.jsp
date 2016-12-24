@@ -13,7 +13,6 @@
                 <li>
                     <form:form class="navbar-form" action="logout" method="post">
                         <sec:authorize access="isAuthenticated()">
-                            <a class="btn btn-info" role="button" href="profile">Профиль</a>
                             <input type="submit" class="btn btn-primary" value="Выйти">
                         </sec:authorize>
                     </form:form>

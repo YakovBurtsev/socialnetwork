@@ -1,24 +1,39 @@
 package ru.yakovburtsev.socialnetwork.user.controller;
 
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import ru.yakovburtsev.socialnetwork.core.model.User;
 import ru.yakovburtsev.socialnetwork.user.auth.AuthorizedUser;
 
 import javax.validation.Valid;
 
-@RestController
+@Controller
 public class UserController extends AbstractUserController {
-    static final String REST_URL = "/profile";
+    static final String REST_URL = "profile";
 
-    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public User get() {
-        return super.get(AuthorizedUser.id());
+    @GetMapping(value = "/profile")
+    public String get(ModelMap model) {
+        User user = super.get(AuthorizedUser.id());
+        model.addAttribute("user", user);
+        return "profile";
     }
 
-    @DeleteMapping
-    public void delete() {
+    @GetMapping(value = "/edit")
+    public String updateProfile(ModelMap model) {
+        User user = super.get(AuthorizedUser.id());
+        model.addAttribute("user", user);
+        return "register";
+    }
+
+    @RequestMapping(value = "/delete")
+    public String delete() {
         super.delete(AuthorizedUser.id());
+        return "login";
     }
 
     @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE)

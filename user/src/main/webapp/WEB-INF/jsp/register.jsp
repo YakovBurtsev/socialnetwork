@@ -19,12 +19,17 @@
     <div class="container">
         <div class="shadow">
             <h3>
-                Регистрация
+                <c:if test="${register}">
+                    Регистрация
+                </c:if>
+                <c:if test="${not register}">
+                    Редактирование профиля
+                </c:if>
             </h3>
 
             <div class="view-box">
                 <form:form modelAttribute="user" class="form-horizontal" method="post"
-                           action="register" charset="utf-8" accept-charset="UTF-8">
+                           action="${register ? 'register' : 'edit'}" charset="utf-8" accept-charset="UTF-8">
 
                     <div class="form-group">
                         <label class="control-label col-xs-2">Имя</label>
@@ -78,7 +83,12 @@
 
                     <div class="form-group">
                         <div class="col-xs-offset-2 col-xs-10">
-                            <button type="submit" class="btn btn-primary">Зарегистрироваться</button>
+                            <c:if test="${register}">
+                                <button type="submit" class="btn btn-primary">Зарегистрироваться</button>
+                            </c:if>
+                            <c:if test="${not register}">
+                                <button type="submit" class="btn btn-primary">Сохранить</button>
+                            </c:if>
                         </div>
                     </div>
                 </form:form>
