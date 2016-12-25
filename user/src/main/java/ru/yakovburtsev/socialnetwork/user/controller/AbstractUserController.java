@@ -4,8 +4,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import ru.yakovburtsev.socialnetwork.core.model.User;
+import ru.yakovburtsev.socialnetwork.core.model.UserInfo;
 import ru.yakovburtsev.socialnetwork.core.service.UserService;
 
+import java.util.List;
 
 abstract class AbstractUserController {
     final Logger log = LoggerFactory.getLogger(getClass());
@@ -38,5 +40,10 @@ abstract class AbstractUserController {
     public User getByEmail(String email) {
         log.info("getByEmail " + email);
         return service.getByEmail(email);
+    }
+
+    public List<UserInfo> findByNameAndSurname(String name, String surname) {
+        log.info("find by name and surname");
+        return service.findByNameAndSurname(name, surname);
     }
 }

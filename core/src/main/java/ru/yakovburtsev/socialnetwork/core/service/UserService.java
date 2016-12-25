@@ -1,6 +1,7 @@
 package ru.yakovburtsev.socialnetwork.core.service;
 
 import ru.yakovburtsev.socialnetwork.core.model.User;
+import ru.yakovburtsev.socialnetwork.core.model.UserInfo;
 
 import java.util.List;
 
@@ -22,6 +23,6 @@ public interface UserService {
     void update(User user);
 
     // Returns empty list if not found
-    List<User> findByNameAndSurname(String name, String surname);
+    List<UserInfo> findByNameAndSurname(String name, String surname);
 
 }

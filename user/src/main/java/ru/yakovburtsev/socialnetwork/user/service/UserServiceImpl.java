@@ -4,12 +4,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 import ru.yakovburtsev.socialnetwork.core.model.User;
+import ru.yakovburtsev.socialnetwork.core.model.UserInfo;
 import ru.yakovburtsev.socialnetwork.core.service.UserService;
 import ru.yakovburtsev.socialnetwork.user.repository.UserRepository;
 import ru.yakovburtsev.socialnetwork.user.util.exception.UserNotFoundException;
 
 import java.util.List;
 
+import static ru.yakovburtsev.socialnetwork.user.util.UserInfoUtil.toUserInfoList;
 import static ru.yakovburtsev.socialnetwork.user.util.UserUtil.prepareToSave;
 
 /**
@@ -66,9 +68,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> findByNameAndSurname(String name, String surname) {
+    public List<UserInfo> findByNameAndSurname(String name, String surname) {
         Assert.notNull(name, "name must not be null");
         Assert.notNull(surname, "surname must not be null");
-        return repository.findByNameAndSurname(name, surname);
+        List<User> users = repository.findByNameAndSurname(name, surname);
+        return toUserInfoList(users);
     }
 }

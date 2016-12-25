@@ -1,17 +1,20 @@
 package ru.yakovburtsev.socialnetwork.core.model;
 
 /**
- * The class represents information about a friend of a user.
+ * The class represents information about a user.
  */
-public class FriendInfo {
+
+
+public class UserInfo {
+
     private Long id;
     private String name;
     private String surname;
 
-    public FriendInfo() {
+    public UserInfo() {
     }
 
-    public FriendInfo(Long id, String name, String surname) {
+    public UserInfo(Long id, String name, String surname) {
         this.id = id;
         this.name = name;
         this.surname = surname;
@@ -43,7 +46,7 @@ public class FriendInfo {
 
     @Override
     public String toString() {
-        return "FriendInfo(" +
+        return "UserInfo(" +
                 "id=" + id +
                 ", name=" + name +
                 ", surname=" + surname +

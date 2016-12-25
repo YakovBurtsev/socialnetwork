@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ru.yakovburtsev.socialnetwork.core.model.Role;
 import ru.yakovburtsev.socialnetwork.core.model.User;
+import ru.yakovburtsev.socialnetwork.core.model.UserInfo;
 import ru.yakovburtsev.socialnetwork.user.matcher.ModelMatcher;
 import ru.yakovburtsev.socialnetwork.user.util.PasswordUtil;
 
@@ -58,7 +59,7 @@ public class UserTestData {
             .build();
 
 
-    public static final ModelMatcher<User> MATCHER = ModelMatcher.of(User.class,
+    public static final ModelMatcher<User> USER_MATCHER = ModelMatcher.of(User.class,
             (expected, actual) -> expected == actual ||
                     (comparePassword(expected.getPassword(), actual.getPassword())
                             && Objects.equals(expected.getId(), actual.getId())
@@ -69,6 +70,14 @@ public class UserTestData {
                             && Objects.equals(expected.getCity(), actual.getCity())
                             && Objects.equals(expected.getEmail(), actual.getEmail())
                             && Objects.equals(expected.getRoles(), actual.getRoles())
+                    )
+    );
+
+    public static final ModelMatcher<UserInfo> USER_INFO_MATCHER = ModelMatcher.of(UserInfo.class,
+            (expected, actual) -> expected == actual ||
+                    (Objects.equals(expected.getId(), actual.getId())
+                            && Objects.equals(expected.getName(), actual.getName())
+                            && Objects.equals(expected.getSurname(), actual.getSurname())
                     )
     );
 

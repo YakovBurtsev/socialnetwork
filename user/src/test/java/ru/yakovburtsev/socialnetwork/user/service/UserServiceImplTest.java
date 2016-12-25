@@ -17,6 +17,7 @@ import java.util.Arrays;
 import java.util.Collections;
 
 import static ru.yakovburtsev.socialnetwork.user.UserTestData.*;
+import static ru.yakovburtsev.socialnetwork.user.util.UserInfoUtil.toUserInfoList;
 
 
 @ContextConfiguration(classes = TestConfig.class)
@@ -36,7 +37,7 @@ public class UserServiceImplTest {
                 .roles(Role.ROLE_USER).build();
         User created = service.save(newUser);
         newUser.setId(created.getId());
-        MATCHER.assertEquals(newUser, service.get(created.getId()));
+        USER_MATCHER.assertEquals(newUser, service.get(created.getId()));
     }
 
     @Test(expected = DataIntegrityViolationException.class)
@@ -63,7 +64,7 @@ public class UserServiceImplTest {
     @Test
     public void testGet() throws Exception {
         User user = service.get(IVAN_ID);
-        MATCHER.assertEquals(IVAN, user);
+        USER_MATCHER.assertEquals(IVAN, user);
     }
 
     @Test(expected = UserNotFoundException.class)
@@ -74,7 +75,7 @@ public class UserServiceImplTest {
     @Test
     public void testGetByEmail() throws Exception {
         User user = service.getByEmail(IVAN.getEmail());
-        MATCHER.assertEquals(IVAN, user);
+        USER_MATCHER.assertEquals(IVAN, user);
     }
 
     @Test
@@ -83,38 +84,46 @@ public class UserServiceImplTest {
         updated.setName("UpdatedName");
         updated.setCity("UpdatedCity");
         service.update(updated);
-        MATCHER.assertEquals(updated, service.get(IVAN_ID));
+        USER_MATCHER.assertEquals(updated, service.get(IVAN_ID));
     }
 
     @Test
     public void testFindByNameAndSurname() throws Exception {
-        MATCHER.assertCollectionEquals(
-                Collections.singletonList(VASILIY),
+        USER_INFO_MATCHER.assertCollectionEquals(
+                toUserInfoList(Collections.singletonList(VASILIY)),
                 service.findByNameAndSurname("Vasiliy", "Ivanov")
         );
     }
 
     @Test
     public void testFindByName() throws Exception {
-        MATCHER.assertCollectionEquals(
-                Arrays.asList(VASILIY, OTHER_VASILIY),
+        USER_INFO_MATCHER.assertCollectionEquals(
+                toUserInfoList(Arrays.asList(VASILIY, OTHER_VASILIY)),
                 service.findByNameAndSurname("Vasiliy", "")
         );
     }
 
     @Test
     public void testFindBySurname() throws Exception {
-        MATCHER.assertCollectionEquals(
-                Arrays.asList(IVAN, VASILIY),
+        USER_INFO_MATCHER.assertCollectionEquals(
+                toUserInfoList(Arrays.asList(IVAN, VASILIY)),
                 service.findByNameAndSurname("", "Ivanov")
         );
     }
 
     @Test
     public void testNotFindByNameAndSurname() throws Exception {
-        MATCHER.assertCollectionEquals(
+        USER_INFO_MATCHER.assertCollectionEquals(
                 Collections.emptyList(),
                 service.findByNameAndSurname("NotExists", "NotExists")
+        );
+    }
+
+    @Test
+    public void testFindAll() throws Exception {
+        USER_INFO_MATCHER.assertCollectionEquals(
+                toUserInfoList(Arrays.asList(IVAN, PETR, VASILIY, OTHER_VASILIY)),
+                service.findByNameAndSurname("", "")
         );
     }
 
