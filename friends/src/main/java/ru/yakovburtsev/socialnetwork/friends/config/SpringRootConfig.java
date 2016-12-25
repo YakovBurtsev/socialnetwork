@@ -14,7 +14,10 @@ import javax.sql.DataSource;
 
 @Configuration
 @EnableTransactionManagement
-@ComponentScan("ru.yakovburtsev.socialnetwork.friends")
+@ComponentScan(value = {
+        "ru.yakovburtsev.socialnetwork.friends.repository",
+        "ru.yakovburtsev.socialnetwork.friends.service",
+})
 public class SpringRootConfig {
     @Autowired
     DataSource dataSource;

@@ -8,7 +8,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-import ru.yakovburtsev.socialnetwork.core.model.FriendInfo;
+import ru.yakovburtsev.socialnetwork.core.model.UserInfo;
 
 import javax.sql.DataSource;
 import java.util.List;
@@ -26,7 +26,7 @@ public class SpringJdbcFriendsRepositoryImpl implements FriendsRepository {
     private static final String USER_ID = "user_id";
     private static final String FRIEND_ID = "friend_id";
 
-    private static final BeanPropertyRowMapper<FriendInfo> ROW_MAPPER = BeanPropertyRowMapper.newInstance(FriendInfo.class);
+    private static final BeanPropertyRowMapper<UserInfo> ROW_MAPPER = BeanPropertyRowMapper.newInstance(UserInfo.class);
 
     private final JdbcTemplate jdbcTemplate;
     private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
@@ -42,7 +42,7 @@ public class SpringJdbcFriendsRepositoryImpl implements FriendsRepository {
     }
 
     @Override
-    public List<FriendInfo> getFriends(Long userId) {
+    public List<UserInfo> getFriends(Long userId) {
         List<Long> ids = jdbcTemplate.queryForList(GET_FRIENDS_IDS, Long.class, userId);
         MapSqlParameterSource map = new MapSqlParameterSource().addValue("ids", ids);
         return namedParameterJdbcTemplate.query(GET_FRIENDS, map, ROW_MAPPER);

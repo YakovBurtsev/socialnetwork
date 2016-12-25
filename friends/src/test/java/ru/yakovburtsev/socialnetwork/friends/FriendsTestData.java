@@ -1,6 +1,6 @@
 package ru.yakovburtsev.socialnetwork.friends;
 
-import ru.yakovburtsev.socialnetwork.core.model.FriendInfo;
+import ru.yakovburtsev.socialnetwork.core.model.UserInfo;
 import ru.yakovburtsev.socialnetwork.friends.matcher.ModelMatcher;
 
 import java.util.Objects;
@@ -18,13 +18,13 @@ public class FriendsTestData {
     public static final long VITALIY_ID = START_SEQ + 3;
     public static final long OLGA_ID = START_SEQ + 4;
 
-    public static FriendInfo IVAN = new FriendInfo(IVAN_ID, "Ivan", "Ivanov");
-    public static FriendInfo PETR = new FriendInfo(PETR_ID, "Petr", "Petrov");
-    public static FriendInfo VASILIY = new FriendInfo(VASILIY_ID, "Vasiliy", "Vasiliev");
-    public static FriendInfo VITALIY = new FriendInfo(VITALIY_ID, "Vitaliy", "Novikov");
-    public static FriendInfo OLGA = new FriendInfo(OLGA_ID, "Olga", "Orlova");
+    public static UserInfo IVAN = new UserInfo(IVAN_ID, "Ivan", "Ivanov");
+    public static UserInfo PETR = new UserInfo(PETR_ID, "Petr", "Petrov");
+    public static UserInfo VASILIY = new UserInfo(VASILIY_ID, "Vasiliy", "Vasiliev");
+    public static UserInfo VITALIY = new UserInfo(VITALIY_ID, "Vitaliy", "Novikov");
+    public static UserInfo OLGA = new UserInfo(OLGA_ID, "Olga", "Orlova");
 
-    public static final ModelMatcher<FriendInfo> MATCHER = ModelMatcher.of(FriendInfo.class,
+    public static final ModelMatcher<UserInfo> MATCHER = ModelMatcher.of(UserInfo.class,
             (expected, actual) -> expected == actual ||
                     (Objects.equals(expected.getId(), actual.getId())
                             && Objects.equals(expected.getName(), actual.getName())

@@ -2,7 +2,7 @@ package ru.yakovburtsev.socialnetwork.friends.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ru.yakovburtsev.socialnetwork.core.model.FriendInfo;
+import ru.yakovburtsev.socialnetwork.core.model.UserInfo;
 import ru.yakovburtsev.socialnetwork.core.service.FriendsService;
 import ru.yakovburtsev.socialnetwork.friends.repository.FriendsRepository;
 
@@ -21,7 +21,7 @@ public class FriendsServiceImpl implements FriendsService {
     }
 
     @Override
-    public List<FriendInfo> getFriends(Long userId) {
+    public List<UserInfo> getFriends(Long userId) {
         return repository.getFriends(userId);
     }
 

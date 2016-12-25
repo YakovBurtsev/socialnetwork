@@ -1,6 +1,6 @@
 package ru.yakovburtsev.socialnetwork.friends.repository;
 
-import ru.yakovburtsev.socialnetwork.core.model.FriendInfo;
+import ru.yakovburtsev.socialnetwork.core.model.UserInfo;
 
 import java.util.List;
 
@@ -14,7 +14,7 @@ public interface FriendsRepository {
      * @param userId id of a user
      * @return list of info about friends
      */
-    List<FriendInfo> getFriends(Long userId);
+    List<UserInfo> getFriends(Long userId);
 
     // true if success
     boolean addFriend(Long userId, Long friendId);

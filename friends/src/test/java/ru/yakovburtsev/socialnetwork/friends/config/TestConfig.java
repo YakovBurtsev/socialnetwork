@@ -12,7 +12,7 @@ import java.sql.SQLException;
 
 
 @Configuration
-@Import(ru.yakovburtsev.socialnetwork.friends.config.SpringRootConfig.class)
+@Import(SpringRootConfig.class)
 public class TestConfig {
 
     @Bean
