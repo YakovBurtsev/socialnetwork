@@ -32,7 +32,7 @@
                 <version>${jetty-maven-plugin.version}</version>
                 <configuration>
                     <httpConnector>
-                        <port>8081</port>
+                        <port>${user.port}</port>
                     </httpConnector>
                 </configuration>
             </plugin>

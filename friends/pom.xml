@@ -31,7 +31,7 @@
                 <version>${jetty-maven-plugin.version}</version>
                 <configuration>
                     <httpConnector>
-                        <port>8082</port>
+                        <port>${friends.port}</port>
                     </httpConnector>
                 </configuration>
             </plugin>
