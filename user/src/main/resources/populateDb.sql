@@ -16,7 +16,7 @@ INSERT INTO users (name, surname, birthday, sex, city, email, password) VALUES
   ('Василий', 'Новиков', '1995-10-09', 'MALE', 'Краснодар', 'novikov@gmail.com',
    '$2a$10$XquO/lLJpie38qUQL9Fc5uAJ8.gVJIC.VJOZBRgSixu2wegoSlkHG'),
 
-  ('Aнна', 'Федорова', '1992-02-15', 'FEMALE', 'Москва',  'anna@gmail.com',
+  ('Анна', 'Федорова', '1992-02-15', 'FEMALE', 'Москва',  'anna@gmail.com',
    '$2a$10$nz9JP9YXi2O.uKzipRH.R.V8OOdGJlolrAk6WZcJMSXh2g4KwASz2'),
 
   ('Татьяна', 'Михайлова', '1990-10-22', 'FEMALE', 'Санкт-Петербург','tatyana@gmail.com',
