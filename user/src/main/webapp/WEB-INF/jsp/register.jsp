@@ -88,6 +88,7 @@
                             </c:if>
                             <c:if test="${not register}">
                                 <button type="submit" class="btn btn-primary">Сохранить</button>
+                                <a href="profile" role="button" class="btn btn-primary">Отмена</a>
                             </c:if>
                         </div>
                     </div>

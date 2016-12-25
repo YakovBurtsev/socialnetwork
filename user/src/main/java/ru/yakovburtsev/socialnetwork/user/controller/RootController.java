@@ -1,6 +1,5 @@
 package ru.yakovburtsev.socialnetwork.user.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -19,13 +18,7 @@ import java.util.EnumSet;
  * The class if root controller where users will register or login.
  */
 @Controller
-public class RootController {
-
-    @Autowired
-    private AdminController adminController;
-
-    @Autowired
-    private UserController userController;
+public class RootController extends AbstractUserController {
 
     @GetMapping(value = {"/", "/login"})
     public String login(ModelMap model) {
@@ -44,7 +37,7 @@ public class RootController {
         if (!result.hasErrors()) {
             try {
                 user.setRoles(EnumSet.of(Role.ROLE_USER));
-                adminController.create(user);
+                super.create(user);
                 return "redirect:login";
             } catch (DataIntegrityViolationException e) {
                 result.addError(new FieldError("user", "email", "Пользователь с таким email уже зарегистрирован"));
@@ -57,7 +50,8 @@ public class RootController {
     public String updateProfile(@Valid User user, BindingResult result) {
         if (!result.hasErrors()) {
             try {
-                userController.update(user);
+                user.setId(AuthorizedUser.id());
+                super.update(user, user.getId());
                 AuthorizedUser.get().update(user);
                 return "redirect:profile";
             } catch (DataIntegrityViolationException e) {

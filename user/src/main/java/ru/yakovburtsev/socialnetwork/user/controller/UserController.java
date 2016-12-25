@@ -14,7 +14,6 @@ import javax.validation.Valid;
 
 @Controller
 public class UserController extends AbstractUserController {
-    static final String REST_URL = "profile";
 
     @GetMapping(value = "/profile")
     public String get(ModelMap model) {
