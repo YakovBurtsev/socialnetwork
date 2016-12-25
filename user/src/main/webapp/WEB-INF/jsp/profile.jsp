@@ -13,7 +13,12 @@
         <!-- It can be fixed with bootstrap affix http://getbootstrap.com/javascript/#affix-->
         <div id="sidebar" class="well sidebar-nav">
             <ul class="nav nav-pills nav-stacked">
-                <li class="active"><a>Моя страница</a></li>
+                <c:if test="${authorized}">
+                    <li class="active"><a>Моя страница</a></li>
+                </c:if>
+                <c:if test="${not authorized}">
+                    <li><a href="profile">Моя страница</a></li>
+                </c:if>
                 <li><a href="users">Поиск друзей</a></li>
             </ul>
         </div>
@@ -58,9 +63,10 @@
                                 </tr>
                                 </tbody>
                             </table>
-                            <a href="edit" class="btn btn-primary">Редактировать профиль</a>
-                            <a href="delete" class="btn btn-danger">Удалить профиль</a>
-
+                            <c:if test="${authorized}">
+                                <a href="edit" class="btn btn-primary">Редактировать профиль</a>
+                                <a href="delete" class="btn btn-danger">Удалить профиль</a>
+                            </c:if>
                         </div>
                     </div>
                 </div>

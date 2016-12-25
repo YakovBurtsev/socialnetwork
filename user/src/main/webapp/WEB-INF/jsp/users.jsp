@@ -51,13 +51,15 @@
                     <c:if test="${!empty result}">
                         <table class="table table-striped display">
                             <tr>
-                                <th width="30">Имя</th>
-                                <th width="30">Фамилия</th>
+                                <th width="50">Имя</th>
+                                <th width="80">Фамилия</th>
+                                <th></th>
                             </tr>
                             <c:forEach items="${result}" var="user">
                                 <tr>
                                     <td>${user.name}</td>
                                     <td>${user.surname}</td>
+                                    <td><a href="profile?userId=${user.id}">Посмотреть</a></td>
                                 </tr>
                             </c:forEach>
                         </table>
