@@ -1,16 +1,10 @@
 package ru.yakovburtsev.socialnetwork.user.controller;
 
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import ru.yakovburtsev.socialnetwork.core.model.User;
 import ru.yakovburtsev.socialnetwork.user.auth.AuthorizedUser;
-
-import javax.validation.Valid;
 
 @Controller
 public class UserController extends AbstractUserController {
@@ -29,15 +23,9 @@ public class UserController extends AbstractUserController {
         return "register";
     }
 
-    @RequestMapping(value = "/delete")
+    @GetMapping(value = "/delete")
     public String delete() {
         super.delete(AuthorizedUser.id());
         return "login";
-    }
-
-    @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public void update(@Valid @RequestBody User user) {
-        user.setId(AuthorizedUser.id());
-        super.update(user, user.getId());
     }
 }
