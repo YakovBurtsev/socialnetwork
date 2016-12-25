@@ -43,7 +43,7 @@ abstract class AbstractUserController {
     }
 
     public List<UserInfo> findByNameAndSurname(String name, String surname) {
-        log.info("find by name and surname");
+        log.info("find by name={} and surname={}", name, surname);
         return service.findByNameAndSurname(name, surname);
     }
 }

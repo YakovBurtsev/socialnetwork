@@ -69,8 +69,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<UserInfo> findByNameAndSurname(String name, String surname) {
-        Assert.notNull(name, "name must not be null");
-        Assert.notNull(surname, "surname must not be null");
+        if (name==null) {
+            name = "";
+        }
+        if (surname==null) {
+            surname = "";
+        }
         List<User> users = repository.findByNameAndSurname(name, surname);
         return toUserInfoList(users);
     }

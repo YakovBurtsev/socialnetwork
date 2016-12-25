@@ -5,8 +5,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import ru.yakovburtsev.socialnetwork.core.model.Role;
 import ru.yakovburtsev.socialnetwork.core.model.User;
 import ru.yakovburtsev.socialnetwork.user.auth.AuthorizedUser;
@@ -20,19 +20,19 @@ import java.util.EnumSet;
 @Controller
 public class RootController extends AbstractUserController {
 
-    @GetMapping(value = {"/", "/login"})
+    @RequestMapping(value = {"/", "/login"}, method = RequestMethod.GET)
     public String login(ModelMap model) {
         return "login";
     }
 
-    @GetMapping(value = "/register")
+    @RequestMapping(value = "/register", method = RequestMethod.GET)
     public String register(ModelMap model) {
         model.addAttribute("user", new User());
         model.addAttribute("register", true);
         return "register";
     }
 
-    @PostMapping(value = "/register")
+    @RequestMapping(value = "/register", method = RequestMethod.POST)
     public String saveRegister(@Valid User user, BindingResult result) {
         if (!result.hasErrors()) {
             try {
@@ -46,7 +46,7 @@ public class RootController extends AbstractUserController {
         return "register";
     }
 
-    @PostMapping(value = "/edit")
+    @RequestMapping(value = "/edit", method = RequestMethod.POST)
     public String updateProfile(@Valid User user, BindingResult result) {
         if (!result.hasErrors()) {
             try {
