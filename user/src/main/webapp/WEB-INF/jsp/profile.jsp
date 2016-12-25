@@ -19,6 +19,7 @@
                 <c:if test="${not authorized}">
                     <li><a href="profile">Моя страница</a></li>
                 </c:if>
+                <li><a href="friends">Друзья</a></li>
                 <li><a href="users">Поиск друзей</a></li>
             </ul>
         </div>
