@@ -9,7 +9,17 @@
 <jsp:include page="fragments/bodyHeader.jsp"/>
 
 <div class="jumbotron">
+    <div class="col-md-2">
+        <!-- It can be fixed with bootstrap affix http://getbootstrap.com/javascript/#affix-->
+        <div id="sidebar" class="well sidebar-nav">
+            <ul class="nav nav-pills nav-stacked">
+                <li class="active"><a>Моя страница</a></li>
+                <li><a href="users">Поиск друзей</a></li>
+            </ul>
+        </div>
+    </div>
     <div class="container">
+
         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xs-offset-0 col-sm-offset-0 col-md-offset-3 col-lg-offset-3 toppad">
 
             <div class="panel panel-info">
