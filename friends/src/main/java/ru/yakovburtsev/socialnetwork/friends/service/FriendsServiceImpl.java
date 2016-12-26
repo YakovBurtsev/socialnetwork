@@ -34,6 +34,11 @@ public class FriendsServiceImpl implements FriendsService {
     }
 
     @Override
+    public boolean isFriend(Long userId, Long friendId) {
+        return repository.isFriend(userId, friendId);
+    }
+
+    @Override
     @Transactional
     public boolean addFriend(Long userId, Long friendId) {
         return repository.addFriend(userId, friendId);

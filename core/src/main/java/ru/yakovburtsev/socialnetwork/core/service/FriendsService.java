@@ -10,6 +10,8 @@ import java.util.List;
 public interface FriendsService {
     List<UserInfo> getFriends(Long userId);
 
+    boolean isFriend(Long userId, Long friendId);
+
     // Returns true if success
     boolean addFriend(Long userId, Long friendId);
 

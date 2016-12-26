@@ -13,6 +13,8 @@ public interface FriendsRepository {
 
     List<UserInfo> getFriends(List<Long> ids);
 
+    boolean isFriend(Long userId, Long friendId);
+
     // true if success
     boolean addFriend(Long userId, Long friendId);
 

@@ -27,6 +27,11 @@ public class FriendsServiceImplTest {
     }
 
     @Test
+    public void isFriend() throws Exception {
+        Assert.isTrue(service.isFriend(IVAN_ID, VASILIY_ID));
+    }
+
+    @Test
     public void addFriend() throws Exception {
         Assert.isTrue(service.addFriend(VASILIY_ID, PETR_ID));
         MATCHER.assertCollectionEquals(Arrays.asList(IVAN, PETR), service.getFriends(VASILIY_ID));
