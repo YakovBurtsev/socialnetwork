@@ -22,4 +22,6 @@ public interface RequestRepository {
     // return empty list if not found
     List<Request> getReceiveRequests(Long userId);
 
+    boolean isSent(Long fromId, Long toId);
+
 }

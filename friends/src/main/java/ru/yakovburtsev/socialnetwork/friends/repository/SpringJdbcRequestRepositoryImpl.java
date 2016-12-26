@@ -6,6 +6,7 @@ import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,6 +21,7 @@ import java.util.List;
 @Repository
 @Transactional(readOnly = true)
 public class SpringJdbcRequestRepositoryImpl implements RequestRepository {
+    private static final String IS_SENT = "SELECT COUNT(*) FROM requests WHERE from_user_id=:from_user_id AND to_user_id=:to_user_id";
     private static final String GET = "SELECT * FROM requests WHERE id=?";
     private static final String DELETE = "DELETE FROM requests WHERE id=?";
     private static final String GET_SENT_REQUESTS = "SELECT * FROM requests WHERE from_user_id=?";
@@ -29,6 +31,7 @@ public class SpringJdbcRequestRepositoryImpl implements RequestRepository {
 
     private final JdbcTemplate jdbcTemplate;
     private final SimpleJdbcInsert insertRequest;
+    private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
     @Autowired
     public SpringJdbcRequestRepositoryImpl(DataSource dataSource) {
@@ -36,6 +39,7 @@ public class SpringJdbcRequestRepositoryImpl implements RequestRepository {
         this.insertRequest = new SimpleJdbcInsert(dataSource)
                 .withTableName("requests")
                 .usingGeneratedKeyColumns("id");
+        this.namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
     }
 
     @Override
@@ -71,5 +75,14 @@ public class SpringJdbcRequestRepositoryImpl implements RequestRepository {
     @Override
     public List<Request> getReceiveRequests(Long userId) {
         return jdbcTemplate.query(GET_RECEIVE_REQUESTS, ROW_MAPPER, userId);
+    }
+
+    @Override
+    public boolean isSent(Long fromId, Long toId) {
+        MapSqlParameterSource map = new MapSqlParameterSource()
+                .addValue("from_user_id", fromId)
+                .addValue("to_user_id", toId);
+        int count = namedParameterJdbcTemplate.queryForObject(IS_SENT, map, Integer.class);
+        return count == 1;
     }
 }

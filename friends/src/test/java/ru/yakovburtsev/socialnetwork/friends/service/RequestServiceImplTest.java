@@ -32,17 +32,7 @@ public class RequestServiceImplTest {
 
     @Test
     public void cancel() throws Exception {
-        assertTrue(service.cancel(REQUEST_0_1.getId()));
-    }
-
-    @Test
-    public void accept() throws Exception {
-        assertTrue(service.accept(REQUEST_4_0.getId()));
-    }
-
-    @Test
-    public void reject() throws Exception {
-        assertTrue(service.reject(REQUEST_5_6.getId()));
+        assertTrue(service.delete(REQUEST_0_1.getId()));
     }
 
     @Test

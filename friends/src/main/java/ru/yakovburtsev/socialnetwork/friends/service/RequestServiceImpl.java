@@ -32,17 +32,7 @@ public class RequestServiceImpl implements RequestService {
     }
 
     @Override
-    public boolean cancel(Long id) {
-        return repository.delete(id);
-    }
-
-    @Override
-    public boolean accept(Long id) {
-        return repository.delete(id);
-    }
-
-    @Override
-    public boolean reject(Long id) {
+    public boolean delete(Long id) {
         return repository.delete(id);
     }
 
@@ -54,5 +44,10 @@ public class RequestServiceImpl implements RequestService {
     @Override
     public List<Request> getReceivedRequests(Long userId) {
         return repository.getReceiveRequests(userId);
+    }
+
+    @Override
+    public boolean isSent(Long fromId, Long toId) {
+        return repository.isSent(fromId, toId);
     }
 }

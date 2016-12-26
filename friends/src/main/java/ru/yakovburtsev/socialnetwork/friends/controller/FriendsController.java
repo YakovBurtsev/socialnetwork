@@ -42,4 +42,13 @@ public class FriendsController {
         LOGGER.info("add friend userId={}, friendId={}", userId, friendId);
         service.addFriend(userId, friendId);
     }
+
+    @GetMapping(value = "/isFriend")
+    public boolean isFriend(
+            @RequestParam(value = "userId") Long userId,
+            @RequestParam(value = "friendId") Long friendId
+    ) {
+        LOGGER.info("is user {} friend of {}", userId, friendId);
+        return service.isFriend(userId, friendId);
+    }
 }
