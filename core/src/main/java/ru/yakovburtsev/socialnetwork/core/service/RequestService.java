@@ -14,13 +14,11 @@ public interface RequestService {
 
     Request get(Long id);
 
-    boolean cancel(Long id);
-
-    boolean accept(Long id);
-
-    boolean reject(Long id);
+    boolean delete(Long id);
 
     List<Request> getSentRequests(Long userId);
 
     List<Request> getReceivedRequests(Long userId);
+
+    boolean isSent(Long fromId, Long toId);
 }

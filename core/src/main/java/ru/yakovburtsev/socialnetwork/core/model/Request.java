@@ -1,11 +1,24 @@
 package ru.yakovburtsev.socialnetwork.core.model;
 
+import javax.persistence.*;
+import java.io.Serializable;
+
 /**
  * The class represent a request to add a friend.
  */
-public class Request {
+@Entity
+@Table(name = "requests")
+public class Request implements Serializable {
+    @Id
+    @SequenceGenerator(name = "requests_seq", sequenceName = "requests_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "requests_seq")
+    @Access(value = AccessType.PROPERTY)
     private Long id;
+
+    @Column(name = "from_user_id", nullable = false)
     private Long fromUserId;
+
+    @Column(name = "to_user_id", nullable = false)
     private Long toUserId;
 
     public Request() {
