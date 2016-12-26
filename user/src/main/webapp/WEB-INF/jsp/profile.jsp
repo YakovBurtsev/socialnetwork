@@ -66,7 +66,6 @@
                             </table>
                             <c:if test="${authorized}">
                                 <a href="edit" class="btn btn-primary">Редактировать профиль</a>
-                                <a href="delete" class="btn btn-danger">Удалить профиль</a>
                             </c:if>
                         </div>
                     </div>
