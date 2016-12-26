@@ -7,7 +7,6 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 import ru.yakovburtsev.socialnetwork.core.model.UserInfo;
 
 import javax.sql.DataSource;
@@ -18,7 +17,6 @@ import java.util.List;
  */
 
 @Repository
-@Transactional(readOnly = true)
 public class SpringJdbcFriendsRepositoryImpl implements FriendsRepository {
     private static final String GET_FRIENDS_IDS = "SELECT friend_id FROM friends WHERE user_id=?";
     private static final String GET_FRIENDS = "SELECT id, name, surname FROM users WHERE id IN (:ids)";
@@ -42,14 +40,17 @@ public class SpringJdbcFriendsRepositoryImpl implements FriendsRepository {
     }
 
     @Override
-    public List<UserInfo> getFriends(Long userId) {
-        List<Long> ids = jdbcTemplate.queryForList(GET_FRIENDS_IDS, Long.class, userId);
+    public List<Long> getFriendsIds(Long userId) {
+        return jdbcTemplate.queryForList(GET_FRIENDS_IDS, Long.class, userId);
+    }
+
+    @Override
+    public List<UserInfo> getFriends(List<Long> ids) {
         MapSqlParameterSource map = new MapSqlParameterSource().addValue("ids", ids);
         return namedParameterJdbcTemplate.query(GET_FRIENDS, map, ROW_MAPPER);
     }
 
     @Override
-    @Transactional
     public boolean addFriend(Long userId, Long friendId) {
         MapSqlParameterSource map = new MapSqlParameterSource()
                 .addValue(USER_ID, userId)
@@ -63,7 +64,6 @@ public class SpringJdbcFriendsRepositoryImpl implements FriendsRepository {
     }
 
     @Override
-    @Transactional
     public boolean deleteFromFriends(Long userId, Long friendId) {
         MapSqlParameterSource map = new MapSqlParameterSource()
                 .addValue(USER_ID, userId)

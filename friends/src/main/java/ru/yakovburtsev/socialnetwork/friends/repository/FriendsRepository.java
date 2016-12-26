@@ -9,12 +9,9 @@ import java.util.List;
  */
 public interface FriendsRepository {
 
-    /**
-     * Return a list with information (id, name and surname) about friends of a users
-     * @param userId id of a user
-     * @return list of info about friends
-     */
-    List<UserInfo> getFriends(Long userId);
+    List<Long> getFriendsIds(Long userId);
+
+    List<UserInfo> getFriends(List<Long> ids);
 
     // true if success
     boolean addFriend(Long userId, Long friendId);
