@@ -33,12 +33,14 @@
                                 <th width="50">Имя</th>
                                 <th width="80">Фамилия</th>
                                 <th></th>
+                                <th></th>
                             </tr>
                             <c:forEach items="${friends}" var="user">
                                 <tr>
                                     <td>${user.name}</td>
                                     <td>${user.surname}</td>
                                     <td><a href="profile?userId=${user.id}">Посмотреть</a></td>
+                                    <td><a href="friends/delete?friendId=${user.id}">Убрать из друзей</a></td>
                                 </tr>
                             </c:forEach>
                         </table>

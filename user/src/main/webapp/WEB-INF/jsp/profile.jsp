@@ -67,6 +67,14 @@
                             <c:if test="${authorized}">
                                 <a href="edit" class="btn btn-primary">Редактировать профиль</a>
                             </c:if>
+                            <c:if test="${not authorized}">
+                                <c:if test="${not isFriend}">
+                                    <c:if test="${not isSent}">
+                                        <a href="request/send?friendId=${user.id}" class="btn btn-primary">Добавить в
+                                            друзья</a>
+                                    </c:if>
+                                </c:if>
+                            </c:if>
                         </div>
                     </div>
                 </div>
