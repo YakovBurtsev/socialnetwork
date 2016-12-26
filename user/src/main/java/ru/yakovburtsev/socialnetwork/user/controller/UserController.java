@@ -57,7 +57,7 @@ public class UserController extends AbstractUserController {
                 Urls.FRIENDS.getUrl().concat("/friends?userId={userId}"), UserInfo[].class, AuthorizedUser.id()
         );
         List<UserInfo> friends = Arrays.asList(responseEntity.getBody());
-        model.addAttribute("result", friends);
-        return "users";
+        model.addAttribute("friends", friends);
+        return "friends";
     }
 }

@@ -16,47 +16,25 @@
         <div id="sidebar" class="well sidebar-nav">
             <ul class="nav nav-pills nav-stacked">
                 <li><a href="profile">Моя страница</a></li>
-                <li><a href="friends">Друзья</a></li>
-                <li class="active"><a>Поиск друзей</a></li>
+                <li class="active"><a>Друзья</a></li>
+                <li><a href="users">Поиск друзей</a></li>
             </ul>
         </div>
     </div>
     <div class="container">
         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xs-offset-0 col-sm-offset-0 col-md-offset-3 col-lg-offset-3 toppad">
             <div class="shadow">
-                <h3>Поиск друзей</h3>
+                <h3>Друзья</h3>
 
                 <div class="view-box">
-
-                    <form:form class="form-horizontal" method="get" action="users/find" charset="UTF-8"
-                               accept-charset="UTF-8">
-                        <div class="form-group">
-                            <label class="control-label col-xs-2">Имя</label>
-                            <div class="col-xs-8">
-                                <input name="name" id="name"/>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-xs-2">Фамилия</label>
-                            <div class="col-xs-8">
-                                <input name="surname" id="surname"/>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-xs-offset-2 col-xs-10">
-                                <button type="submit" class="btn btn-primary">Поиск</button>
-                            </div>
-                        </div>
-                    </form:form>
-
-                    <c:if test="${!empty result}">
+                    <c:if test="${!empty friends}">
                         <table class="table table-striped display">
                             <tr>
                                 <th width="50">Имя</th>
                                 <th width="80">Фамилия</th>
                                 <th></th>
                             </tr>
-                            <c:forEach items="${result}" var="user">
+                            <c:forEach items="${friends}" var="user">
                                 <tr>
                                     <td>${user.name}</td>
                                     <td>${user.surname}</td>
