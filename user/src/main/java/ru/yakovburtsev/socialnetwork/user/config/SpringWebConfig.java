@@ -3,12 +3,14 @@ package ru.yakovburtsev.socialnetwork.user.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.context.support.ReloadableResourceBundleMessageSource;
+import org.springframework.web.servlet.config.annotation.*;
+import org.springframework.web.servlet.i18n.CookieLocaleResolver;
+import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
+
+import java.util.Locale;
 
 /**
  * This configuration class can be treated as a replacement of spring-servlet.xml
@@ -32,12 +34,33 @@ public class SpringWebConfig extends WebMvcConfigurerAdapter {
         resolver.setPrefix("/WEB-INF/jsp/");
         resolver.setSuffix(".jsp");
         resolver.setViewClass(JstlView.class);
-
         return resolver;
     }
 
     @Override
     public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
         configurer.enable();
+    }
+
+    @Bean
+    public ReloadableResourceBundleMessageSource messageSource() {
+        ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
+        messageSource.setBasename("classpath:messages");
+        messageSource.setDefaultEncoding("UTF-8");
+        return messageSource;
+    }
+
+    @Bean
+    public CookieLocaleResolver localeResolver() {
+        CookieLocaleResolver resolver = new CookieLocaleResolver();
+        resolver.setDefaultLocale(new Locale("ru"));
+        return resolver;
+    }
+
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        LocaleChangeInterceptor interceptor = new LocaleChangeInterceptor();
+        interceptor.setParamName("lang");
+        registry.addInterceptor(interceptor);
     }
 }

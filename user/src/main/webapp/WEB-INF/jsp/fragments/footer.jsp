@@ -4,7 +4,7 @@
 
 <div class="footer">
     <div class="container">
-        <a href="https://github.com/YakovBurtsev/socialnetwork">Репозиторий на GitHub</a>
+        <spring:message code="app.footer"/>
     </div>
 </div>
 

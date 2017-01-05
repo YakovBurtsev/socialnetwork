@@ -6,7 +6,7 @@
 
 <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
     <div class="container">
-        <div class="navbar-header navbar-brand">Социальная сеть</div>
+        <div class="navbar-header navbar-brand"><spring:message code="app.title"/></div>
 
         <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav navbar-right">
@@ -17,6 +17,7 @@
                         </sec:authorize>
                     </form:form>
                 </li>
+                <jsp:include page="lang.jsp"/>
             </ul>
         </div>
     </div>

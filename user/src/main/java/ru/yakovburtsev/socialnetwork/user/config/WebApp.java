@@ -34,15 +34,15 @@ public class WebApp implements WebApplicationInitializer {
         servlet.setLoadOnStartup(1);
         servlet.addMapping(DISPATCHER_SERVLET_MAPPING);
 
-        FilterRegistration.Dynamic securityFilter = servletContext.addFilter(
-                AbstractSecurityWebApplicationInitializer.DEFAULT_FILTER_NAME, DelegatingFilterProxy.class
-        );
-        securityFilter.addMappingForUrlPatterns(EnumSet.allOf(DispatcherType.class), false, "/*");
-
         FilterRegistration.Dynamic encodingFilter = servletContext.addFilter("encodingFilter", new CharacterEncodingFilter());
         encodingFilter.setInitParameter("encoding", "UTF-8");
         encodingFilter.setInitParameter("forceEncoding", "true");
         encodingFilter.addMappingForUrlPatterns(null, true, "/*");
+
+        FilterRegistration.Dynamic securityFilter = servletContext.addFilter(
+                AbstractSecurityWebApplicationInitializer.DEFAULT_FILTER_NAME, DelegatingFilterProxy.class
+        );
+        securityFilter.addMappingForUrlPatterns(EnumSet.allOf(DispatcherType.class), false, "/*");
 
         servletContext.addListener(new ContextLoaderListener(rootContext));
     }
