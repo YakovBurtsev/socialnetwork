@@ -28,7 +28,7 @@
             </h3>
 
             <div class="view-box">
-                <form:form modelAttribute="user" class="form-horizontal" method="post"
+                <form:form modelAttribute="user" class="form-horizontal" method="post" enctype="multipart/form-data"
                            action="${register ? 'register' : 'edit'}" charset="utf-8" accept-charset="UTF-8">
 
                     <div class="form-group">
@@ -78,6 +78,13 @@
                         <div class="col-xs-8">
                             <form:password path="password" id="password"/>
                             <form:errors path="password" cssClass="error"/>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-xs-2">Аватар</label>
+                        <div class="col-xs-8">
+                            <input name="avatar" type="file"/>
                         </div>
                     </div>
 
