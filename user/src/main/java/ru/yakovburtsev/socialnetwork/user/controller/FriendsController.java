@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -33,7 +34,7 @@ public class FriendsController {
         return "friends";
     }
 
-    @GetMapping("/delete")
+    @DeleteMapping
     public String deleteFromFriends(@RequestParam(value = "friendId") Long friendId) {
         restTemplate.delete(
                 Urls.FRIENDS.getUrl().concat("/friends?userId={userId}&friendId={friendId}"),

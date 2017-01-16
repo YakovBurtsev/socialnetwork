@@ -6,3 +6,7 @@
 .error {
     color: red;
 }
+
+.no-margin {
+    margin: 0;
+}

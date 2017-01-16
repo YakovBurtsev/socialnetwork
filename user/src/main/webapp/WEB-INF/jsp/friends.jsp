@@ -30,18 +30,24 @@
                     <c:if test="${!empty friends}">
                         <table class="table table-striped display">
                             <tr>
-                                <th width="50">Имя</th>
+                                <th width="80">Имя</th>
                                 <th width="80">Фамилия</th>
-                                <th></th>
-                                <th></th>
+                                <th width="80"></th>
+                                <th width="80"></th>
                             </tr>
                             <c:forEach items="${friends}" var="user">
                                 <tr>
                                     <td>${user.name}</td>
                                     <td>${user.surname}</td>
-                                    <td><a href="profile?userId=${user.id}">Посмотреть</a></td>
-                                    <td><a href="friends/delete?friendId=${user.id}">Убрать из друзей</a></td>
+                                    <td><a href="profile?userId=${user.id}" class="btn btn-primary">Посмотреть</a></td>
+                                    <td>
+                                        <form method="post" action="friends?friendId=${user.id}">
+                                            <input type="hidden" name="_method" value="delete">
+                                            <input type="submit" class="btn btn-danger" value="Убрать из друзей">
+                                        </form>
+                                    </td>
                                 </tr>
+
                             </c:forEach>
                         </table>
                     </c:if>
