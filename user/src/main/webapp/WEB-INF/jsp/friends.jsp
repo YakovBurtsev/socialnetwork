@@ -15,9 +15,9 @@
         <!-- It can be fixed with bootstrap affix http://getbootstrap.com/javascript/#affix-->
         <div id="sidebar" class="well sidebar-nav">
             <ul class="nav nav-pills nav-stacked">
-                <li><a href="profile">Моя страница</a></li>
-                <li class="active"><a>Друзья</a></li>
-                <li><a href="users">Поиск друзей</a></li>
+                <li><a href="profile"><spring:message code="profile.home"/></a></li>
+                <li class="active"><a><spring:message code="profile.friends"/></a></li>
+                <li><a href="users"><spring:message code="profile.findFriends"/></a></li>
             </ul>
         </div>
     </div>
@@ -30,8 +30,8 @@
                     <c:if test="${!empty friends}">
                         <table class="table table-striped display">
                             <tr>
-                                <th width="80">Имя</th>
-                                <th width="80">Фамилия</th>
+                                <th width="80"><spring:message code="profile.name"/></th>
+                                <th width="80"><spring:message code="profile.surname"/></th>
                                 <th width="80"></th>
                                 <th width="80"></th>
                             </tr>
@@ -39,11 +39,16 @@
                                 <tr>
                                     <td>${user.name}</td>
                                     <td>${user.surname}</td>
-                                    <td><a href="profile?userId=${user.id}" class="btn btn-primary">Посмотреть</a></td>
+                                    <td>
+                                        <a href="profile?userId=${user.id}" class="btn btn-primary">
+                                            <spring:message code="common.show"/>
+                                        </a>
+                                    </td>
                                     <td>
                                         <form method="post" action="friends?friendId=${user.id}">
                                             <input type="hidden" name="_method" value="delete">
-                                            <input type="submit" class="btn btn-danger" value="Убрать из друзей">
+                                            <spring:message code="friends.delete" var="delete_from_friends"/>
+                                            <input type="submit" class="btn btn-danger" value="${delete_from_friends}">
                                         </form>
                                     </td>
                                 </tr>

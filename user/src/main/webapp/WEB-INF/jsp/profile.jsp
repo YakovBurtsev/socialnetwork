@@ -14,13 +14,13 @@
         <div id="sidebar" class="well sidebar-nav">
             <ul class="nav nav-pills nav-stacked">
                 <c:if test="${authorized}">
-                    <li class="active"><a>Моя страница</a></li>
+                    <li class="active"><a><spring:message code="profile.home"/></a></li>
                 </c:if>
                 <c:if test="${not authorized}">
-                    <li><a href="profile">Моя страница</a></li>
+                    <li><a href="profile"><spring:message code="profile.home"/></a></li>
                 </c:if>
-                <li><a href="friends">Друзья</a></li>
-                <li><a href="users">Поиск друзей</a></li>
+                <li><a href="friends"><spring:message code="profile.friends"/></a></li>
+                <li><a href="users"><spring:message code="profile.findFriends"/></a></li>
             </ul>
         </div>
     </div>
@@ -42,36 +42,37 @@
                             <table class="table table-user-information">
                                 <tbody>
                                 <tr>
-                                    <td>Дата рождения:</td>
+                                    <td><spring:message code="profile.dateOfBirth"/>:</td>
                                     <td>${user.birthday}</td>
                                 </tr>
                                 <tr>
-                                    <td>Пол</td>
+                                    <td><spring:message code="profile.sex"/></td>
                                     <c:if test="${user.sex == 'MALE'}">
-                                        <td>Мужской</td>
+                                        <td><spring:message code="sex.male"/></td>
                                     </c:if>
                                     <c:if test="${user.sex == 'FEMALE'}">
-                                        <td>Женский</td>
+                                        <td><spring:message code="sex.female"/></td>
                                     </c:if>
                                 </tr>
                                 <tr>
-                                    <td>Город</td>
+                                    <td><spring:message code="profile.city"/></td>
                                     <td>${user.city}</td>
                                 </tr>
                                 <tr>
-                                    <td>Email</td>
+                                    <td><spring:message code="profile.email"/></td>
                                     <td>${user.email}</td>
                                 </tr>
                                 </tbody>
                             </table>
                             <c:if test="${authorized}">
-                                <a href="edit" class="btn btn-primary">Редактировать профиль</a>
+                                <a href="edit" class="btn btn-primary"><spring:message code="profile.edit"/> </a>
                             </c:if>
                             <c:if test="${not authorized}">
                                 <c:if test="${not isFriend}">
                                     <c:if test="${not isSent}">
-                                        <a href="request/send?friendId=${user.id}" class="btn btn-primary">Добавить в
-                                            друзья</a>
+                                        <a href="request/send?friendId=${user.id}" class="btn btn-primary">
+                                            <spring:message code="friends.add"/>
+                                        </a>
                                     </c:if>
                                 </c:if>
                             </c:if>

@@ -19,7 +19,7 @@
                         <div class="form-group">
                             <input type="password" placeholder="пароль" class="form-control" name='password'>
                         </div>
-                        <button type="submit" class="btn btn-success"><spring:message code="app.login"/></button>
+                        <button type="submit" class="btn btn-primary"><spring:message code="app.login"/></button>
                     </form:form>
                 </li>
                 <jsp:include page="fragments/lang.jsp"/>
@@ -32,8 +32,8 @@
     <div class="container">
         <p></p>
 
-        <p><a class="btn btn-primary btn-lg" role="button" href="register"><spring:message code="app.register"/></a></p>
-        <p>Стек технологий:
+        <p><a class="btn btn-primary btn-lg" role="button" href="register"><spring:message code="app.registration"/></a></p>
+        <p><spring:message code="app.technologies"/>:
             <a href="http://projects.spring.io/spring-security/">Spring Security</a>,
             <a href="http://docs.spring.io/spring/docs/current/spring-framework-reference/html/mvc.html">Spring MVC</a>,
             <a href="http://projects.spring.io/spring-data-jpa/">Spring Data JPA</a>,
@@ -50,7 +50,7 @@
 </div>
 <div class="container">
     <div class="lead">
-        <p>Java Enterprise проект Социальная сеть</p>
+        <p><spring:message code="app.project"/></p>
     </div>
 </div>
 <jsp:include page="fragments/footer.jsp"/>

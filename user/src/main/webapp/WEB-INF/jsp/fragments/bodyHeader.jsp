@@ -13,7 +13,7 @@
                 <li>
                     <form:form class="navbar-form" action="logout" method="post">
                         <sec:authorize access="isAuthenticated()">
-                            <input type="submit" class="btn btn-primary" value="Выйти">
+                        <input type="submit" class="btn btn-primary" value=<spring:message code="app.logout"/>>
                         </sec:authorize>
                     </form:form>
                 </li>
