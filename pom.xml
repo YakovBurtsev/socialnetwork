@@ -48,6 +48,7 @@
         <spring.version>4.3.3.RELEASE</spring.version>
         <spring-data-jpa.version>1.10.4.RELEASE</spring-data-jpa.version>
         <spring.security.version>4.0.4.RELEASE</spring.security.version>
+        <spring-boot-maven-plugin.version>1.4.2.RELEASE</spring-boot-maven-plugin.version>
 
         <!-- Tests -->
         <junit.version>4.12</junit.version>
@@ -78,6 +79,10 @@
         <jsoup.version>1.10.1</jsoup.version>
 
         <commons-fileupload.version>1.3.1</commons-fileupload.version>
+
+        <!--spring-cloud-->
+        <spring-cloud-dependencies.version>Brixton.SR7</spring-cloud-dependencies.version>
+        <spring-cloud-starter-eureka.version>1.2.3.RELEASE</spring-cloud-starter-eureka.version>
     </properties>
 
     <build>
