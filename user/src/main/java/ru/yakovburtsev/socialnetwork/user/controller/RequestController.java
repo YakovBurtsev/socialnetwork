@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
 import ru.yakovburtsev.socialnetwork.core.model.Request;
-import ru.yakovburtsev.socialnetwork.core.util.Urls;
 import ru.yakovburtsev.socialnetwork.user.auth.AuthorizedUser;
 
 @Controller
@@ -21,16 +20,17 @@ public class RequestController {
     public String create(@RequestParam(value = "friendId") Long friendId) {
         Request request = new Request(AuthorizedUser.id(), friendId);
         System.out.println(request);
-        restTemplate.postForObject(
-                Urls.FRIENDS.getUrl().concat("/request"), request, Request.class
-        );
+//        restTemplate.postForObject(
+//                Urls.FRIENDS.getUrl().concat("/request"), request, Request.class
+//        );
         return "friends";
     }
 
     public boolean isSent(Long toId) {
-        return restTemplate.getForObject(
-                Urls.FRIENDS.getUrl().concat("/request/isSent?fromId={fromId}&toId={toId}"),
-                Boolean.class, AuthorizedUser.id(), toId
-        );
+//        return restTemplate.getForObject(
+//                Urls.FRIENDS.getUrl().concat("/request/isSent?fromId={fromId}&toId={toId}"),
+//                Boolean.class, AuthorizedUser.id(), toId
+//        );
+        return false;
     }
 }

@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: javax.servlet:jstl:${javax.servlet.jstl.version}">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/javax/servlet/jstl/${javax.servlet.jstl.version}/jstl-${javax.servlet.jstl.version}.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/javax/servlet/jstl/${javax.servlet.jstl.version}/jstl-${javax.servlet.jstl.version}-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/javax/servlet/jstl/${javax.servlet.jstl.version}/jstl-${javax.servlet.jstl.version}-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

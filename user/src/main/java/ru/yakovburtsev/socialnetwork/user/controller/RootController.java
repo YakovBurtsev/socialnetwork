@@ -27,7 +27,7 @@ import static ru.yakovburtsev.socialnetwork.user.util.ImageUtil.validateImage;
 public class RootController extends AbstractUserController {
 
     @RequestMapping(value = {"/", "/login"}, method = RequestMethod.GET)
-    public String login(ModelMap model) {
+    public String login() {
         return "login";
     }
 
