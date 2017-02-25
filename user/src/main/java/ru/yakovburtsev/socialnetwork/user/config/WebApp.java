@@ -26,7 +26,6 @@ public class WebApp implements WebApplicationInitializer {
         AnnotationConfigWebApplicationContext rootContext = new AnnotationConfigWebApplicationContext();
         rootContext.register(SpringRootConfig.class);
         rootContext.register(SpringWebConfig.class);
-        rootContext.register(SpringDbConfig.class);
         rootContext.register(SpringSecurityConfig.class);
 
         ServletRegistration.Dynamic servlet = servletContext.addServlet(

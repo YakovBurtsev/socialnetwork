@@ -2,11 +2,11 @@ DROP TABLE IF EXISTS user_roles;
 DROP TABLE IF EXISTS users;
 DROP SEQUENCE IF EXISTS users_seq;
 
-CREATE SEQUENCE users_seq START 1;
+CREATE SEQUENCE users_seq START WITH 1;
 
 CREATE TABLE users
 (
-  id       BIGINT PRIMARY KEY DEFAULT nextval('users_seq'),
+  id       BIGINT DEFAULT NEXT VALUE FOR users_seq PRIMARY KEY,
   name     VARCHAR NOT NULL,
   surname  VARCHAR NOT NULL,
   birthday TIMESTAMP,
