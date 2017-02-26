@@ -23,6 +23,7 @@
         <module>friends</module>
         <module>message</module>
         <module>photo</module>
+        <module>gateway</module>
     </modules>
 
     <properties>
@@ -49,6 +50,5 @@
         <spring-cloud-dependencies.version>Brixton.SR7</spring-cloud-dependencies.version>
         <spring-cloud-starter-eureka.version>1.2.3.RELEASE</spring-cloud-starter-eureka.version>
     </properties>
-
 
 </project>
