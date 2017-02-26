@@ -21,8 +21,12 @@ import javax.sql.DataSource;
         "ru.yakovburtsev.socialnetwork.user.service"
 })
 public class SpringRootConfig {
+    private final DataSource dataSource;
+
     @Autowired
-    DataSource dataSource;
+    public SpringRootConfig(DataSource dataSource) {
+        this.dataSource = dataSource;
+    }
 
     @Bean
     public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
@@ -44,8 +48,4 @@ public class SpringRootConfig {
         return txManager;
     }
 
-    @Bean
-    public RestTemplate restTemplate() {
-        return new RestTemplate();
-    }
 }

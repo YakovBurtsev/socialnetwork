@@ -20,8 +20,6 @@ import java.util.List;
 @RequestMapping("/friends")
 public class FriendsController {
 
-    @Autowired
-    private RestTemplate restTemplate;
 
     @GetMapping
     public String getFriends(ModelMap model) {

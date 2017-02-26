@@ -13,8 +13,6 @@ import ru.yakovburtsev.socialnetwork.user.auth.AuthorizedUser;
 @Controller
 @RequestMapping("/request")
 public class RequestController {
-    @Autowired
-    private RestTemplate restTemplate;
 
     @GetMapping(value = "/send", produces = MediaType.APPLICATION_JSON_VALUE)
     public String create(@RequestParam(value = "friendId") Long friendId) {
