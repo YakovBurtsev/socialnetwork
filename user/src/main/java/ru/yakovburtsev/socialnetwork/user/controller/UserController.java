@@ -1,56 +1,44 @@
 package ru.yakovburtsev.socialnetwork.user.controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jms.annotation.JmsListener;
+import org.springframework.jms.core.JmsTemplate;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import ru.yakovburtsev.socialnetwork.core.model.User;
-import ru.yakovburtsev.socialnetwork.user.auth.AuthorizedUser;
+import ru.yakovburtsev.socialnetwork.core.service.UserService;
+
 
 @Controller
-public class UserController extends AbstractUserController {
+public class UserController {
+    private final Logger log = LoggerFactory.getLogger(getClass());
+
+    private static final String USER_QUEUE = "user_queue";
+    private static final String USER_RESPONSE_QUEUE = "user_response_queue";
+    private static final String GET = "get";
+
+    private final UserService userService;
+    private final JmsTemplate jmsTemplate;
 
     @Autowired
-    private FriendsController friendsController;
-
-    @Autowired
-    private RequestController requestController;
-
-    @GetMapping(value = "/profile")
-    public String get(
-            @RequestParam(value = "userId", required = false) Long userId,
-            ModelMap model) {
-        boolean authorized;
-        User user;
-        if (userId != null) {
-            authorized = false;
-            user = super.get(userId);
-            if (friendsController.isFriend(userId)) {
-                model.addAttribute("isFriend", true);
-            } else {
-                model.addAttribute("isFriend", false);
-                if (requestController.isSent(userId)) {
-                    model.addAttribute("isSent", true);
-                } else {
-                    model.addAttribute("isSent", false);
-                }
-            }
-        } else {
-            authorized = true;
-            user = super.get(AuthorizedUser.id());
-        }
-
-        model.addAttribute("authorized", authorized);
-        model.addAttribute("user", user);
-        return "profile";
+    public UserController(UserService userService, JmsTemplate jmsTemplate) {
+        this.userService = userService;
+        this.jmsTemplate = jmsTemplate;
     }
 
-    @GetMapping(value = "/edit")
-    public String updateProfile(ModelMap model) {
-        User user = super.get(AuthorizedUser.id());
-        model.addAttribute("user", user);
-        return "register";
+    @JmsListener(destination = USER_QUEUE, selector = GET)
+    public void get(Long userId) {
+        log.info("get " + userId);
+        final User user = userService.get(userId);
+        jmsTemplate.send(USER_RESPONSE_QUEUE, session -> session.createObjectMessage(user));
     }
+
+//    @GetMapping(value = "/edit")
+//    public String updateProfile(ModelMap model) {
+//        User user = super.get(AuthorizedUser.id());
+//        model.addAttribute("user", user);
+//        return "register";
+//    }
 
 }

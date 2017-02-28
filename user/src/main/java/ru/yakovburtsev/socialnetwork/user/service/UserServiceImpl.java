@@ -1,14 +1,12 @@
 package ru.yakovburtsev.socialnetwork.user.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 import ru.yakovburtsev.socialnetwork.core.model.User;
 import ru.yakovburtsev.socialnetwork.core.model.UserInfo;
 import ru.yakovburtsev.socialnetwork.core.service.UserService;
-import ru.yakovburtsev.socialnetwork.user.auth.AuthorizedUser;
 import ru.yakovburtsev.socialnetwork.user.repository.UserRepository;
 import ru.yakovburtsev.socialnetwork.user.util.exception.UserNotFoundException;
 
@@ -18,11 +16,11 @@ import static ru.yakovburtsev.socialnetwork.user.util.UserInfoUtil.toUserInfoLis
 import static ru.yakovburtsev.socialnetwork.user.util.UserUtil.prepareToSave;
 
 /**
- * This class is implementation of {@link UserService} and @{@link UserDetailsService} interfaces.
+ * This class is implementation of {@link UserService}.
  */
 
 @Service
-public class UserServiceImpl implements UserService, UserDetailsService {
+public class UserServiceImpl implements UserService {
 
     private final UserRepository repository;
 
@@ -82,8 +80,4 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         return toUserInfoList(users);
     }
 
-    @Override
-    public UserDetails loadUserByUsername(String email) {
-        return new AuthorizedUser(getByEmail(email));
-    }
 }

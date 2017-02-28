@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import ru.yakovburtsev.socialnetwork.core.model.Role;
 import ru.yakovburtsev.socialnetwork.core.model.User;
-import ru.yakovburtsev.socialnetwork.user.auth.AuthorizedUser;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -63,18 +62,18 @@ public class RootController extends AbstractUserController {
         return "register";
     }
 
-    @RequestMapping(value = "/edit", method = RequestMethod.POST)
-    public String updateProfile(@Valid User user, BindingResult result) {
-        if (!result.hasErrors()) {
-            try {
-                user.setId(AuthorizedUser.id());
-                super.update(user, user.getId());
-                AuthorizedUser.get().update(user);
-                return "redirect:profile";
-            } catch (DataIntegrityViolationException e) {
-                result.addError(new FieldError("user", "email", "Пользователь с таким email уже зарегистрирован"));
-            }
-        }
-        return "register";
-    }
+//    @RequestMapping(value = "/edit", method = RequestMethod.POST)
+//    public String updateProfile(@Valid User user, BindingResult result) {
+//        if (!result.hasErrors()) {
+//            try {
+//                user.setId(AuthorizedUser.id());
+//                super.update(user, user.getId());
+//                AuthorizedUser.get().update(user);
+//                return "redirect:profile";
+//            } catch (DataIntegrityViolationException e) {
+//                result.addError(new FieldError("user", "email", "Пользователь с таким email уже зарегистрирован"));
+//            }
+//        }
+//        return "register";
+//    }
 }
