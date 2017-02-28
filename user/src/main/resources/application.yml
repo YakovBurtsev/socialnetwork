@@ -5,13 +5,5 @@ spring:
   profiles:
     active: dev
 
-  application:
-    name: user
-
 server:
   port: 8081
-
-eureka:
-  client:
-    serviceUrl:
-      defaultZone: ${EUREKA_URI:http://localhost:8761/eureka}
