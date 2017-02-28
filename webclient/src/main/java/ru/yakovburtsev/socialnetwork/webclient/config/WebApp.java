@@ -1,4 +1,4 @@
-package ru.yakovburtsev.socialnetwork.user.config;
+package ru.yakovburtsev.socialnetwork.webclient.config;
 
 import org.springframework.security.web.context.AbstractSecurityWebApplicationInitializer;
 import org.springframework.web.WebApplicationInitializer;
@@ -24,8 +24,8 @@ public class WebApp implements WebApplicationInitializer {
     @Override
     public void onStartup(ServletContext servletContext) throws ServletException {
         AnnotationConfigWebApplicationContext rootContext = new AnnotationConfigWebApplicationContext();
-        rootContext.register(SpringRootConfig.class);
         rootContext.register(SpringWebConfig.class);
+        rootContext.register(MessagingConfig.class);
         rootContext.register(SpringSecurityConfig.class);
 
         ServletRegistration.Dynamic servlet = servletContext.addServlet(

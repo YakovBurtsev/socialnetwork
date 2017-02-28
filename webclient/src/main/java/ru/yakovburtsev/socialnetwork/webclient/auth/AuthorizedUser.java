@@ -1,4 +1,4 @@
-package ru.yakovburtsev.socialnetwork.user.auth;
+package ru.yakovburtsev.socialnetwork.webclient.auth;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -35,7 +35,6 @@ public class AuthorizedUser extends org.springframework.security.core.userdetail
     public static Long id() {
         return get().user.getId();
     }
-
 
     public void update(User user) {
         this.user = user;

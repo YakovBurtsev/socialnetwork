@@ -1,11 +1,10 @@
-package ru.yakovburtsev.socialnetwork.user.config;
+package ru.yakovburtsev.socialnetwork.webclient.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
-import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.*;
 import org.springframework.web.servlet.i18n.CookieLocaleResolver;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
@@ -20,7 +19,9 @@ import java.util.Locale;
  */
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackages = {"ru.yakovburtsev.socialnetwork.user.controller"})
+@ComponentScan(basePackages = {
+        "ru.yakovburtsev.socialnetwork.webclient.controller"
+})
 public class SpringWebConfig extends WebMvcConfigurerAdapter {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
