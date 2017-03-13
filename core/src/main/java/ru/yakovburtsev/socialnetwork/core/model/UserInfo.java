@@ -1,11 +1,13 @@
 package ru.yakovburtsev.socialnetwork.core.model;
 
+import java.io.Serializable;
+
 /**
  * The class represents information about a user.
  */
 
 
-public class UserInfo {
+public class UserInfo implements Serializable {
 
     private Long id;
     private String name;

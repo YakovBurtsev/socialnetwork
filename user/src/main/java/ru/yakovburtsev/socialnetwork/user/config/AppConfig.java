@@ -19,11 +19,11 @@ import javax.sql.DataSource;
         "ru.yakovburtsev.socialnetwork.user.repository",
         "ru.yakovburtsev.socialnetwork.user.service"
 })
-public class SpringRootConfig {
+public class AppConfig {
     private final DataSource dataSource;
 
     @Autowired
-    public SpringRootConfig(DataSource dataSource) {
+    public AppConfig(DataSource dataSource) {
         this.dataSource = dataSource;
     }
 

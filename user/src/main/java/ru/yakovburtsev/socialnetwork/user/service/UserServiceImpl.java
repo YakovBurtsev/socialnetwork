@@ -1,7 +1,6 @@
 package ru.yakovburtsev.socialnetwork.user.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 import ru.yakovburtsev.socialnetwork.core.model.User;

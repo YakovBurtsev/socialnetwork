@@ -26,8 +26,7 @@ public class SearchingController extends AbstractUserController {
     public String search(
             @RequestParam(value = "name", required = false) String name,
             @RequestParam(value = "surname", required = false) String surname,
-            ModelMap modelMap
-    ) {
+            ModelMap modelMap) {
         List<UserInfo> infoList = super.findByNameAndSurname(name, surname);
         Iterator<UserInfo> iterator = infoList.iterator();
         while(iterator.hasNext()) {

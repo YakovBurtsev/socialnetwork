@@ -11,7 +11,7 @@ import javax.sql.DataSource;
 import java.sql.SQLException;
 
 @Configuration
-@Import(SpringRootConfig.class)
+@Import(AppConfig.class)
 public class TestConfig {
     @Bean
     public DataSource dataSource() {

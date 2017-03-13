@@ -30,7 +30,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     public UserDetails loadUserByUsername(String email) {
         jmsTemplate.send((session -> {
             TextMessage textMessage = session.createTextMessage(email);
-            textMessage.setStringProperty("isEmail", "true");
+            textMessage.setStringProperty("get_by_email", "true");
             return textMessage;
         }));
         User user = (User) jmsTemplate.receiveSelectedAndConvert(USER_RESPONSE_QUEUE, "email = " + "'" + email + "'");
