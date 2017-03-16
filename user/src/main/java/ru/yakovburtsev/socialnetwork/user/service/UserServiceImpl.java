@@ -15,7 +15,7 @@ import static ru.yakovburtsev.socialnetwork.user.util.UserInfoUtil.toUserInfoLis
 import static ru.yakovburtsev.socialnetwork.user.util.UserUtil.prepareToSave;
 
 /**
- * This class is implementation of {@link UserService}.
+ * This class is implementation of {@link UserService} interface.
  */
 
 @Service
@@ -54,6 +54,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getByEmail(String email) {
         Assert.notNull(email, "email must not be null");
+        System.out.println("get user by email = " + email);
         User user = repository.getByEmail(email.toLowerCase());
         if (user == null) {
             throw new UserNotFoundException("Not found user with email=" + email);
@@ -69,14 +70,13 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<UserInfo> findByNameAndSurname(String name, String surname) {
-        if (name==null) {
+        if (name == null) {
             name = "";
         }
-        if (surname==null) {
+        if (surname == null) {
             surname = "";
         }
         List<User> users = repository.findByNameAndSurname(name, surname);
         return toUserInfoList(users);
     }
-
 }
