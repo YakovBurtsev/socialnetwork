@@ -13,10 +13,6 @@ public class PasswordUtil {
     private static final Pattern BCRYPT_PATTERN = Pattern.compile("\\A\\$2a?\\$\\d\\d\\$[./0-9A-Za-z]{53}");
     private static final PasswordEncoder PASSWORD_ENCODER = new BCryptPasswordEncoder();
 
-    public static PasswordEncoder getPasswordEncoder() {
-        return PASSWORD_ENCODER;
-    }
-
     static String encode(String newPassword) {
         if (StringUtils.isEmpty(newPassword)) {
             return null;
