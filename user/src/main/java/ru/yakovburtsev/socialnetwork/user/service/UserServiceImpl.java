@@ -10,9 +10,10 @@ import ru.yakovburtsev.socialnetwork.user.repository.UserRepository;
 import ru.yakovburtsev.socialnetwork.user.util.exception.UserNotFoundException;
 
 import java.util.List;
+import java.util.Objects;
 
+import static ru.yakovburtsev.socialnetwork.user.util.PasswordUtil.encode;
 import static ru.yakovburtsev.socialnetwork.user.util.UserInfoUtil.toUserInfoList;
-import static ru.yakovburtsev.socialnetwork.user.util.UserUtil.prepareToSave;
 
 /**
  * This class is implementation of {@link UserService} interface.
@@ -70,13 +71,14 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<UserInfo> findByNameAndSurname(String name, String surname) {
-        if (name == null) {
-            name = "";
-        }
-        if (surname == null) {
-            surname = "";
-        }
-        List<User> users = repository.findByNameAndSurname(name, surname);
+        List<User> users = repository.findByNameAndSurname(Objects.toString(name, ""), Objects.toString(surname, ""));
         return toUserInfoList(users);
     }
+
+    private static User prepareToSave(User user) {
+        user.setPassword(encode(user.getPassword()));
+        user.setEmail(user.getEmail().toLowerCase());
+        return user;
+    }
+
 }
