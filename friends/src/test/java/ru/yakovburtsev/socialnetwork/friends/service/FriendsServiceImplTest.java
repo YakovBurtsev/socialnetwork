@@ -22,11 +22,6 @@ public class FriendsServiceImplTest {
     private FriendsService service;
 
     @Test
-    public void getFriends() throws Exception {
-        MATCHER.assertCollectionEquals(Arrays.asList(PETR, VASILIY, VITALIY, OLGA), service.getFriends(IVAN_ID));
-    }
-
-    @Test
     public void isFriend() throws Exception {
         Assert.isTrue(service.isFriend(IVAN_ID, VASILIY_ID));
     }
@@ -34,14 +29,10 @@ public class FriendsServiceImplTest {
     @Test
     public void addFriend() throws Exception {
         Assert.isTrue(service.addFriend(VASILIY_ID, PETR_ID));
-        MATCHER.assertCollectionEquals(Arrays.asList(IVAN, PETR), service.getFriends(VASILIY_ID));
-        MATCHER.assertCollectionEquals(Arrays.asList(IVAN, VASILIY), service.getFriends(PETR_ID));
     }
 
     @Test
     public void deleteFromFriends() throws Exception {
         Assert.isTrue(service.deleteFromFriends(VITALIY_ID, OLGA_ID));
-        MATCHER.assertCollectionEquals(Collections.singletonList(IVAN), service.getFriends(VITALIY_ID));
-        MATCHER.assertCollectionEquals(Collections.singletonList(IVAN), service.getFriends(OLGA_ID));
     }
 }

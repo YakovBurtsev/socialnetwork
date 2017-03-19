@@ -20,7 +20,6 @@ import java.util.List;
 public class SpringJdbcFriendsRepositoryImpl implements FriendsRepository {
     private static final String IS_FRIEND = "SELECT COUNT(*) FROM friends WHERE user_id=:user_id AND friend_id=:friend_id";
     private static final String GET_FRIENDS_IDS = "SELECT friend_id FROM friends WHERE user_id=?";
-    private static final String GET_FRIENDS = "SELECT id, name, surname FROM users WHERE id IN (:ids)";
     private static final String DELETE_FROM_FRIENDS = "DELETE FROM friends WHERE user_id=:user_id AND friend_id=:friend_id";
     private static final String USER_ID = "user_id";
     private static final String FRIEND_ID = "friend_id";
@@ -43,12 +42,6 @@ public class SpringJdbcFriendsRepositoryImpl implements FriendsRepository {
     @Override
     public List<Long> getFriendsIds(Long userId) {
         return jdbcTemplate.queryForList(GET_FRIENDS_IDS, Long.class, userId);
-    }
-
-    @Override
-    public List<UserInfo> getFriends(List<Long> ids) {
-        MapSqlParameterSource map = new MapSqlParameterSource().addValue("ids", ids);
-        return namedParameterJdbcTemplate.query(GET_FRIENDS, map, ROW_MAPPER);
     }
 
     @Override
