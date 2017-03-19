@@ -18,9 +18,14 @@ import javax.sql.DataSource;
         "ru.yakovburtsev.socialnetwork.friends.repository",
         "ru.yakovburtsev.socialnetwork.friends.service",
 })
-public class SpringRootConfig {
+public class FriendsConfig {
+
+    private final DataSource dataSource;
+
     @Autowired
-    DataSource dataSource;
+    public FriendsConfig(DataSource dataSource) {
+        this.dataSource = dataSource;
+    }
 
     @Bean
     public PlatformTransactionManager transactionManager() {

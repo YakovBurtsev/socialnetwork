@@ -7,8 +7,9 @@ import ru.yakovburtsev.socialnetwork.core.model.UserInfo;
 import ru.yakovburtsev.socialnetwork.core.service.FriendsService;
 import ru.yakovburtsev.socialnetwork.friends.repository.FriendsRepository;
 
-import java.util.Collections;
 import java.util.List;
+
+import static java.util.Collections.emptyList;
 
 /**
  * The class is implementation of {@link ru.yakovburtsev.socialnetwork.core.service.FriendsService} interface
@@ -16,6 +17,7 @@ import java.util.List;
 @Service
 @Transactional(readOnly = true)
 public class FriendsServiceImpl implements FriendsService {
+
     private final FriendsRepository repository;
 
     @Autowired
@@ -27,8 +29,9 @@ public class FriendsServiceImpl implements FriendsService {
     public List<UserInfo> getFriends(Long userId) {
         List<Long> friendsIds = repository.getFriendsIds(userId);
         if (friendsIds.isEmpty()) {
-            return Collections.emptyList();
+            return emptyList();
         } else {
+            //TODO: get friends info from user microservice by JMS
             return repository.getFriends(friendsIds);
         }
     }

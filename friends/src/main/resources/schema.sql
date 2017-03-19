@@ -2,7 +2,7 @@ DROP TABLE IF EXISTS requests;
 DROP TABLE IF EXISTS friends;
 DROP SEQUENCE IF EXISTS requests_seq;
 
-CREATE SEQUENCE requests_seq START 1;
+CREATE SEQUENCE requests_seq START WITH 1;
 
 CREATE TABLE friends
 (
@@ -14,7 +14,7 @@ ALTER TABLE friends
   ADD PRIMARY KEY (user_id, friend_id);
 
 CREATE TABLE requests (
-  id           BIGINT PRIMARY KEY DEFAULT nextval('requests_seq'),
+  id           BIGINT DEFAULT NEXT VALUE FOR requests_seq PRIMARY KEY,
   from_user_id BIGINT NOT NULL,
   to_user_id   BIGINT NOT NULL
 );
