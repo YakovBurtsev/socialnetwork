@@ -25,4 +25,5 @@ public interface UserService {
     // Returns empty list if not found
     List<UserInfo> findByNameAndSurname(String name, String surname);
 
+    List<UserInfo> getUsers(List<Long> ids);
 }

@@ -19,11 +19,11 @@ import javax.sql.DataSource;
         "ru.yakovburtsev.socialnetwork.user.repository",
         "ru.yakovburtsev.socialnetwork.user.service"
 })
-public class AppConfig {
+public class UserConfig {
     private final DataSource dataSource;
 
     @Autowired
-    public AppConfig(DataSource dataSource) {
+    public UserConfig(DataSource dataSource) {
         this.dataSource = dataSource;
     }
 

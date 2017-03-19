@@ -7,11 +7,11 @@ import org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter;
 import ru.yakovburtsev.socialnetwork.core.service.UserService;
 
 @Configuration
-public class HttpInvokerConfig  {
+public class UserHttpInvokerConfig {
     private final UserService userService;
 
     @Autowired
-    public HttpInvokerConfig(UserService userService) {
+    public UserHttpInvokerConfig(UserService userService) {
         this.userService = userService;
     }
 

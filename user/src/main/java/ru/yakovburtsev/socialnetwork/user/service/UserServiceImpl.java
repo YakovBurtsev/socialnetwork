@@ -71,8 +71,15 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<UserInfo> findByNameAndSurname(String name, String surname) {
-        List<User> users = repository.findByNameAndSurname(Objects.toString(name, ""), Objects.toString(surname, ""));
-        return toUserInfoList(users);
+        return toUserInfoList(repository.findByNameAndSurname(
+                Objects.toString(name, ""),
+                Objects.toString(surname, ""))
+        );
+    }
+
+    @Override
+    public List<UserInfo> getUsers(List<Long> ids) {
+        return toUserInfoList(repository.getUsers(ids));
     }
 
     private static User prepareToSave(User user) {
@@ -80,5 +87,4 @@ public class UserServiceImpl implements UserService {
         user.setEmail(user.getEmail().toLowerCase());
         return user;
     }
-
 }
