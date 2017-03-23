@@ -29,6 +29,9 @@ import java.util.Set;
 @Entity
 @Table(name = "users", uniqueConstraints = {@UniqueConstraint(columnNames = "email", name = "users_email_unique")})
 public class User implements Serializable {
+
+    private static final long SerialVersionUID = 1;
+
     public static final String DELETE = "User.delete";
     public static final String GET_BY_EMAIL = "User.getByEmail";
     public static final String GET_BY_NAME_AND_SURNAME = "User.getByNameAndSurname";
