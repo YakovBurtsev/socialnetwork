@@ -1,0 +1,9 @@
+spring:
+  datasource:
+    sqlScriptEncoding: UTF-8
+
+  profiles:
+    active: dev
+
+server:
+  port: 8082

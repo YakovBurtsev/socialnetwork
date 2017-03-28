@@ -23,4 +23,6 @@ public interface UserRepository {
 
     // return empty list if not found
     List<User> findByNameAndSurname(String name, String surname);
+
+    List<User> getUsers(List<Long> ids);
 }

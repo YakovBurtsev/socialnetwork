@@ -12,7 +12,10 @@ import java.sql.SQLException;
 
 
 @Configuration
-@Import(SpringRootConfig.class)
+@Import({
+        FriendsConfig.class,
+        MessagingConfig.class
+})
 public class TestConfig {
 
     @Bean

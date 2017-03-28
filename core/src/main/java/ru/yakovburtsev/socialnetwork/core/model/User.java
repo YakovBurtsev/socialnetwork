@@ -23,14 +23,19 @@ import java.util.Set;
 @NamedQueries({
         @NamedQuery(name = User.DELETE, query = "DELETE FROM User u WHERE u.id=:id"),
         @NamedQuery(name = User.GET_BY_EMAIL, query = "SELECT u FROM User u WHERE u.email=?1"),
-        @NamedQuery(name = User.GET_BY_NAME_AND_SURNAME, query = "SELECT u FROM User u WHERE u.name LIKE :name AND u.surname LIKE :surname")
+        @NamedQuery(name = User.GET_BY_NAME_AND_SURNAME, query = "SELECT u FROM User u WHERE u.name LIKE :name AND u.surname LIKE :surname"),
+        @NamedQuery(name = User.GET_USERS, query = "SELECT u FROM User u WHERE u.id in (:ids)")
 })
 @Entity
 @Table(name = "users", uniqueConstraints = {@UniqueConstraint(columnNames = "email", name = "users_email_unique")})
 public class User implements Serializable {
+
+    private static final long SerialVersionUID = 1;
+
     public static final String DELETE = "User.delete";
     public static final String GET_BY_EMAIL = "User.getByEmail";
     public static final String GET_BY_NAME_AND_SURNAME = "User.getByNameAndSurname";
+    public static final String GET_USERS = "User.getUsers";
 
     @Id
     @SequenceGenerator(name = "users_seq", sequenceName = "users_seq", allocationSize = 1)

@@ -2,25 +2,29 @@ package ru.yakovburtsev.socialnetwork.user.config;
 
 import org.apache.activemq.ActiveMQConnectionFactory;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jms.annotation.EnableJms;
 import org.springframework.jms.config.DefaultJmsListenerContainerFactory;
 import org.springframework.jms.core.JmsTemplate;
-import ru.yakovburtsev.socialnetwork.core.model.User;
-import ru.yakovburtsev.socialnetwork.user.util.MessageSender;
+
+import javax.jms.ConnectionFactory;
 
 
-@Configuration
 @EnableJms
+@Configuration
+@ComponentScan(value = {
+        "ru.yakovburtsev.socialnetwork.user.controller"
+})
 public class MessagingConfig {
-
     private static final String DEFAULT_BROKER_URL = "tcp://localhost:61616";
 
     public final static String USER_QUEUE = "user_queue";
     public final static String USER_RESPONSE_QUEUE = "user_response_queue";
 
+
     @Bean
-    public ActiveMQConnectionFactory connectionFactory(){
+    public ConnectionFactory connectionFactory() {
         ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory();
         connectionFactory.setBrokerURL(DEFAULT_BROKER_URL);
         connectionFactory.setTrustAllPackages(true);
@@ -28,10 +32,9 @@ public class MessagingConfig {
     }
 
     @Bean
-    public JmsTemplate jmsTemplate(){
+    public JmsTemplate jmsTemplate() {
         JmsTemplate template = new JmsTemplate();
         template.setConnectionFactory(connectionFactory());
-        template.setDefaultDestinationName(USER_RESPONSE_QUEUE);
         return template;
     }
 
@@ -41,10 +44,5 @@ public class MessagingConfig {
         factory.setConnectionFactory(connectionFactory());
         factory.setConcurrency("1-1");
         return factory;
-    }
-
-    @Bean
-    public MessageSender<User> messageSender() {
-        return new MessageSender<>(jmsTemplate(), USER_RESPONSE_QUEUE);
     }
 }

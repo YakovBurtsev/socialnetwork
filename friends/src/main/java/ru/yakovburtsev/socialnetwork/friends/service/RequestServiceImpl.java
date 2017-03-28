@@ -1,19 +1,21 @@
 package ru.yakovburtsev.socialnetwork.friends.service;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.Assert;
 import ru.yakovburtsev.socialnetwork.core.model.Request;
 import ru.yakovburtsev.socialnetwork.core.service.RequestService;
 import ru.yakovburtsev.socialnetwork.friends.repository.RequestRepository;
 
 import java.util.List;
 
+import static org.springframework.util.Assert.notNull;
+
+@Slf4j
 @Service
 public class RequestServiceImpl implements RequestService {
 
     private final RequestRepository repository;
-
 
     @Autowired
     public RequestServiceImpl(RequestRepository repository) {
@@ -22,13 +24,17 @@ public class RequestServiceImpl implements RequestService {
 
     @Override
     public Request create(Request request) {
-        Assert.notNull(request, "request must not be null");
+        log.info("create {}", request);
+        notNull(request, "request must not be null");
         return repository.save(request);
     }
 
     @Override
     public Request get(Long id) {
-        return repository.get(id);
+        log.info("get request id={}", id);
+        Request request = repository.get(id);
+        log.info("got: {}", request);
+        return request;
     }
 
     @Override

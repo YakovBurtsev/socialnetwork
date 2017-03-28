@@ -11,8 +11,6 @@ public interface FriendsRepository {
 
     List<Long> getFriendsIds(Long userId);
 
-    List<UserInfo> getFriends(List<Long> ids);
-
     boolean isFriend(Long userId, Long friendId);
 
     // true if success

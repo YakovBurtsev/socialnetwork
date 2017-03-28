@@ -1,49 +1,37 @@
 package ru.yakovburtsev.socialnetwork.webclient.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import ru.yakovburtsev.socialnetwork.core.model.User;
-import ru.yakovburtsev.socialnetwork.webclient.auth.AuthorizedUser;
+
+import static ru.yakovburtsev.socialnetwork.webclient.auth.AuthorizedUser.id;
 
 @Controller
 public class UserController extends AbstractUserController {
+    private final FriendsController friendsController;
+    private final RequestController requestController;
+
+    @Autowired
+    public UserController(FriendsController friendsController, RequestController requestController) {
+        this.friendsController = friendsController;
+        this.requestController = requestController;
+    }
 
     @GetMapping(value = "/profile")
     public String get(@RequestParam(value = "userId", required = false) Long userId, ModelMap model) {
-        boolean authorized;
-        User user;
-        if (userId != null) {
-            authorized = false;
-            user = super.get(userId);
-//            friendsMessageReceiver.send(userId, IS_FRIEND, authorizedUserId);
-//            if (friendsMessageReceiver.receive(
-//                    IS_FRIEND + " = " + authorizedUserId + IS_FRIEND_SELECTOR + userId)) {
-//                model.addAttribute("isFriend", true);
-//            } else {
-//                model.addAttribute("isFriend", false);
-//                friendsMessageReceiver.send(userId, IS_SENT, authorizedUserId);
-//                if (friendsMessageReceiver.receive(IS_SENT + " = " + authorizedUserId + IS_SENT_SELECTOR)) {
-//                    model.addAttribute("isSent", true);
-//                } else {
-//                    model.addAttribute("isSent", false);
-//                }
-//            }
-        } else {
-            authorized = true;
-            user = super.get(AuthorizedUser.id());
-        }
-
-        model.addAttribute("authorized", authorized);
-        model.addAttribute("user", user);
+        model
+                .addAttribute("authorized", userId == null)
+                .addAttribute("user", userId != null ? super.get(userId) : super.get(id()))
+                .addAttribute("isFriend", userId != null && friendsController.isFriend(userId))
+                .addAttribute("isSent", userId != null && requestController.isSent(userId));
         return "profile";
     }
 
     @GetMapping(value = "/edit")
     public String updateProfile(ModelMap model) {
-        User user = super.get(AuthorizedUser.id());
-        model.addAttribute("user", user);
+        model.addAttribute("user", super.get(id()));
         return "register";
     }
 }

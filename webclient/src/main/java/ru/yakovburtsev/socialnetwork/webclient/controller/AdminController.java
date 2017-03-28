@@ -20,14 +20,12 @@ public class AdminController extends AbstractUserController {
 
     @GetMapping("/{id}")
     public User get(@PathVariable Long id) {
-        log.info("get " + id);
         return super.get(id);
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<User> createWithLocation(@Valid @RequestBody User user) {
         user.setId(null);
-        log.info("create " + user);
         User created = super.create(user);
 
         URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
@@ -38,20 +36,17 @@ public class AdminController extends AbstractUserController {
 
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Long id) {
-        log.info("delete " + id);
         super.delete(id);
     }
 
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     public void update(@Valid @RequestBody User user, @PathVariable Long id) {
         user.setId(id);
-        log.info("update " + user);
         super.update(user, id);
     }
 
     @GetMapping(value = "/by", produces = MediaType.APPLICATION_JSON_VALUE)
     public User getByEmail(@RequestParam("email") String email) {
-        log.info("getByEmail " + email);
         return super.getByEmail(email);
     }
 

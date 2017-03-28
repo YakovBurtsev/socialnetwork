@@ -19,20 +19,18 @@ import javax.sql.DataSource;
         "ru.yakovburtsev.socialnetwork.user.repository",
         "ru.yakovburtsev.socialnetwork.user.service"
 })
-public class AppConfig {
+public class UserConfig {
     private final DataSource dataSource;
 
     @Autowired
-    public AppConfig(DataSource dataSource) {
+    public UserConfig(DataSource dataSource) {
         this.dataSource = dataSource;
     }
 
     @Bean
     public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
-
         HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
         vendorAdapter.setGenerateDdl(true);
-
         LocalContainerEntityManagerFactoryBean factory = new LocalContainerEntityManagerFactoryBean();
         factory.setJpaVendorAdapter(vendorAdapter);
         factory.setDataSource(dataSource);
@@ -46,5 +44,4 @@ public class AppConfig {
         txManager.setEntityManagerFactory(entityManagerFactory().getObject());
         return txManager;
     }
-
 }

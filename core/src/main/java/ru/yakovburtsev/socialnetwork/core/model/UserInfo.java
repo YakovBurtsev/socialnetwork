@@ -9,6 +9,8 @@ import java.io.Serializable;
 
 public class UserInfo implements Serializable {
 
+    private static final long SerialVersionUID = 1;
+
     private Long id;
     private String name;
     private String surname;

@@ -7,10 +7,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import ru.yakovburtsev.socialnetwork.core.model.UserInfo;
-import ru.yakovburtsev.socialnetwork.webclient.auth.AuthorizedUser;
 
-import java.util.Iterator;
 import java.util.List;
+
+import static ru.yakovburtsev.socialnetwork.webclient.auth.AuthorizedUser.id;
 
 @Controller
 @RequestMapping(value = SearchingController.REST_URL)
@@ -23,18 +23,11 @@ public class SearchingController extends AbstractUserController {
     }
 
     @GetMapping(value = "/find")
-    public String search(
-            @RequestParam(value = "name", required = false) String name,
-            @RequestParam(value = "surname", required = false) String surname,
-            ModelMap modelMap) {
+    public String search(@RequestParam(value = "name", required = false) String name,
+                         @RequestParam(value = "surname", required = false) String surname,
+                         ModelMap modelMap) {
         List<UserInfo> infoList = super.findByNameAndSurname(name, surname);
-        Iterator<UserInfo> iterator = infoList.iterator();
-        while(iterator.hasNext()) {
-            UserInfo userInfo = iterator.next();
-            if (userInfo.getId().longValue() == AuthorizedUser.id().longValue()) {
-                iterator.remove();
-            }
-        }
+        infoList.removeIf(userInfo -> userInfo.getId().equals(id()));
         modelMap.addAttribute("result", infoList);
         return "users";
     }

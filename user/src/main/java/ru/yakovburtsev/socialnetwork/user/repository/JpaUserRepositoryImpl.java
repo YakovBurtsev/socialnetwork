@@ -10,6 +10,10 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
 
+import static ru.yakovburtsev.socialnetwork.core.model.User.GET_BY_EMAIL;
+import static ru.yakovburtsev.socialnetwork.core.model.User.GET_BY_NAME_AND_SURNAME;
+import static ru.yakovburtsev.socialnetwork.core.model.User.GET_USERS;
+
 @Repository
 @Transactional(readOnly = true)
 public class JpaUserRepositoryImpl implements UserRepository {
@@ -41,7 +45,7 @@ public class JpaUserRepositoryImpl implements UserRepository {
 
     @Override
     public User getByEmail(String email) {
-        List<User> users = em.createNamedQuery(User.GET_BY_EMAIL, User.class).setParameter(1, email).getResultList();
+        List<User> users = em.createNamedQuery(GET_BY_EMAIL, User.class).setParameter(1, email).getResultList();
         return DataAccessUtils.singleResult(users);
     }
 
@@ -49,9 +53,16 @@ public class JpaUserRepositoryImpl implements UserRepository {
     public List<User> findByNameAndSurname(String name, String surname) {
         String sampleName = name.isEmpty() ? "%" : name;
         String sampleSurname = surname.isEmpty() ? "%" : surname;
-        return em.createNamedQuery(User.GET_BY_NAME_AND_SURNAME, User.class)
+        return em.createNamedQuery(GET_BY_NAME_AND_SURNAME, User.class)
                 .setParameter("name", sampleName)
                 .setParameter("surname", sampleSurname)
+                .getResultList();
+    }
+
+    @Override
+    public List<User> getUsers(List<Long> ids) {
+        return em.createNamedQuery(GET_USERS, User.class)
+                .setParameter("ids", ids)
                 .getResultList();
     }
 }
