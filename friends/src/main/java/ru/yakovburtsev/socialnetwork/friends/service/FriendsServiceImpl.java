@@ -1,5 +1,6 @@
 package ru.yakovburtsev.socialnetwork.friends.service;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.stereotype.Service;
@@ -18,6 +19,7 @@ import static ru.yakovburtsev.socialnetwork.friends.config.MessagingConfig.USER_
 /**
  * The class is implementation of {@link ru.yakovburtsev.socialnetwork.core.service.FriendsService} interface
  */
+@Slf4j
 @Service
 @Transactional(readOnly = true)
 public class FriendsServiceImpl implements FriendsService {

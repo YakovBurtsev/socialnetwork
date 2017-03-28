@@ -1,5 +1,6 @@
 package ru.yakovburtsev.socialnetwork.friends.service;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.yakovburtsev.socialnetwork.core.model.Request;
@@ -10,6 +11,7 @@ import java.util.List;
 
 import static org.springframework.util.Assert.notNull;
 
+@Slf4j
 @Service
 public class RequestServiceImpl implements RequestService {
 

@@ -1,5 +1,6 @@
 package ru.yakovburtsev.socialnetwork.webclient.controller;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -14,7 +15,7 @@ import java.util.List;
 
 import static ru.yakovburtsev.socialnetwork.webclient.auth.AuthorizedUser.id;
 
-
+@Slf4j
 @Controller
 @RequestMapping("/friends")
 public class FriendsController {
