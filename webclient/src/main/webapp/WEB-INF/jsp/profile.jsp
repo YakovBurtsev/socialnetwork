@@ -70,9 +70,9 @@
                             <c:if test="${not authorized}">
                                 <c:if test="${not isFriend}">
                                     <c:if test="${not isSent}">
-                                        <a href="request/send?friendId=${user.id}" class="btn btn-primary">
+                                        <button type="submit" class="btn btn-primary" onclick="send_request(${user.id})">
                                             <spring:message code="friends.add"/>
-                                        </a>
+                                        </button>
                                     </c:if>
                                 </c:if>
                             </c:if>
@@ -86,5 +86,7 @@
 
 <jsp:include page="fragments/footer.jsp"/>
 </body>
+
+<script type="text/javascript" src="resources/js/profile.js"></script>
 
 </html>
