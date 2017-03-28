@@ -24,8 +24,6 @@ public class SpringJdbcFriendsRepositoryImpl implements FriendsRepository {
     private static final String USER_ID = "user_id";
     private static final String FRIEND_ID = "friend_id";
 
-    private static final BeanPropertyRowMapper<UserInfo> ROW_MAPPER = BeanPropertyRowMapper.newInstance(UserInfo.class);
-
     private final JdbcTemplate jdbcTemplate;
     private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
     private final SimpleJdbcInsert insertFriend;
