@@ -29,17 +29,22 @@ public class FriendsController {
 
     @GetMapping
     public String getFriends(ModelMap model) {
+
+        log.info("get friends of userId={}", id());
         List<UserInfo> friends = friendsService.getFriends(id());
+        log.info("got: {}", friends);
         model.addAttribute("friends", friends);
         return "friends";
     }
 
     @DeleteMapping
     public void deleteFromFriends(@RequestParam(value = "friendId") Long friendId) {
+        log.info("delete friendId={} from friends of userId={}", friendId, id());
         friendsService.deleteFromFriends(id(), friendId);
     }
 
     boolean isFriend(Long friendId) {
+        log.info("delete userId={} from friends userId={}", friendId, id());
         return friendsService.isFriend(id(), friendId);
     }
 }

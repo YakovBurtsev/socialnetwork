@@ -24,13 +24,17 @@ public class RequestServiceImpl implements RequestService {
 
     @Override
     public Request create(Request request) {
+        log.info("create {}", request);
         notNull(request, "request must not be null");
         return repository.save(request);
     }
 
     @Override
     public Request get(Long id) {
-        return repository.get(id);
+        log.info("get request id={}", id);
+        Request request = repository.get(id);
+        log.info("got: {}", request);
+        return request;
     }
 
     @Override

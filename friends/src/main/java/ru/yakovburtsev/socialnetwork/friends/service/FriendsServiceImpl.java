@@ -34,31 +34,38 @@ public class FriendsServiceImpl implements FriendsService {
     }
 
     @Override
-    @SuppressWarnings("uncheked")
+    @SuppressWarnings("unchecked")
     public List<UserInfo> getFriends(Long userId) {
+        log.info("get friends of userId={}", userId);
         List<Long> friendsIds = repository.getFriendsIds(userId);
-        if (friendsIds.isEmpty()) {
-            return emptyList();
-        } else {
+        List<UserInfo> userInfos = emptyList();
+        if (!friendsIds.isEmpty()) {
             jmsTemplate.send(USER_QUEUE, session -> session.createObjectMessage(new ArrayList<>(friendsIds)));
-            return (List<UserInfo>) jmsTemplate.receiveAndConvert(USER_RESPONSE_QUEUE);
+            userInfos = (List<UserInfo>) jmsTemplate.receiveAndConvert(USER_RESPONSE_QUEUE);
         }
+        log.info("got: {}", userInfos);
+        return userInfos;
     }
 
     @Override
     public boolean isFriend(Long userId, Long friendId) {
-        return repository.isFriend(userId, friendId);
+        log.info("check whether there is userId={} in friend-list of userId={}", friendId, userId);
+        boolean isFriend = repository.isFriend(userId, friendId);
+        log.info("Is it a friend={}", isFriend);
+        return isFriend;
     }
 
     @Override
     @Transactional
     public boolean addFriend(Long userId, Long friendId) {
+        log.info("add userId={} to friends of userId={}", friendId, userId);
         return repository.addFriend(userId, friendId);
     }
 
     @Override
     @Transactional
     public boolean deleteFromFriends(Long userId, Long friendId) {
+        log.info("delete userId={} from friends userId={}", friendId, userId);
         return repository.deleteFromFriends(userId, friendId);
     }
 

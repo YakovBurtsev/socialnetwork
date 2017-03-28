@@ -15,28 +15,38 @@ abstract class AbstractUserController {
     private UserService service;
 
     User get(Long id) {
-        return service.get(id);
+        log.info("get user id={}", id);
+        User user = service.get(id);
+        log.info("got: {}", user);
+        return user;
     }
 
     User create(User user) {
+        log.info("create {}", user);
         user.setId(null);
         return service.save(user);
     }
 
     void delete(Long id) {
+        log.info("delete user id={}", id);
         service.delete(id);
     }
 
     void update(User user, Long id) {
         user.setId(id);
+        log.info("update {}", user);
         service.update(user);
     }
 
     User getByEmail(String email) {
+        log.info("get user by email={}", email);
         return service.getByEmail(email);
     }
 
     List<UserInfo> findByNameAndSurname(String name, String surname) {
-        return service.findByNameAndSurname(name, surname);
+        log.info("find users by name={} and surname={}", name, surname);
+        List<UserInfo> userInfoList = service.findByNameAndSurname(name, surname);
+        log.info("got: {}", userInfoList);
+        return userInfoList;
     }
 }

@@ -54,6 +54,7 @@ public class UserServiceImpl implements UserService {
         if (user == null) {
             throw new UserNotFoundException("Not found user with id=" + id);
         }
+        log.info("got: {}", user);
         return user;
     }
 
@@ -65,6 +66,7 @@ public class UserServiceImpl implements UserService {
         if (user == null) {
             throw new UserNotFoundException("Not found user with email=" + email);
         }
+        log.info("got: {}", user);
         return user;
     }
 
@@ -78,16 +80,20 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<UserInfo> findByNameAndSurname(String name, String surname) {
         log.info("find users by name={} and surname={}", name, surname);
-        return toUserInfoList(repository.findByNameAndSurname(
+        List<UserInfo> userInfos = toUserInfoList(repository.findByNameAndSurname(
                 Objects.toString(name, ""),
                 Objects.toString(surname, ""))
         );
+        log.info("got: {}", userInfos);
+        return userInfos;
     }
 
     @Override
     public List<UserInfo> getUsers(List<Long> ids) {
         log.info("get users where id in {}", ids);
-        return toUserInfoList(repository.getUsers(ids));
+        List<UserInfo> userInfos = toUserInfoList(repository.getUsers(ids));
+        log.info("got: {}", userInfos);
+        return userInfos;
     }
 
     private static User prepareToSave(User user) {

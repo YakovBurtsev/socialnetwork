@@ -24,10 +24,14 @@ public class RequestController {
 
     @PostMapping(value = "/send")
     public void create(@RequestParam(value = "friendId") Long friendId) {
-        requestService.create(new Request(id(), friendId));
+        Request request = new Request(id(), friendId);
+        log.info("create {}", request);
+        requestService.create(request);
     }
 
     boolean isSent(Long toId) {
-        return requestService.isSent(id(), toId);
+        boolean isSent = requestService.isSent(id(), toId);
+        log.info("check whether userId={} sent add to friend-list request to userId={}", id(), toId);
+        return isSent;
     }
 }
