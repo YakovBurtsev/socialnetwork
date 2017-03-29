@@ -11,7 +11,7 @@ import ru.yakovburtsev.socialnetwork.core.model.Role;
 import ru.yakovburtsev.socialnetwork.core.model.User;
 import ru.yakovburtsev.socialnetwork.core.service.UserService;
 import ru.yakovburtsev.socialnetwork.user.config.TestConfig;
-import ru.yakovburtsev.socialnetwork.user.util.exception.UserNotFoundException;
+import ru.yakovburtsev.socialnetwork.core.exception.UserNotFoundException;
 
 import static java.util.Arrays.asList;
 import static java.util.Collections.emptyList;

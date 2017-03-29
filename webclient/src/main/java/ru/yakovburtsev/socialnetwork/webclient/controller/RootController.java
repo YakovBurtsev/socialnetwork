@@ -2,7 +2,6 @@ package ru.yakovburtsev.socialnetwork.webclient.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -12,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.i18n.CookieLocaleResolver;
+import ru.yakovburtsev.socialnetwork.core.exception.DuplicateEmailException;
 import ru.yakovburtsev.socialnetwork.core.model.Role;
 import ru.yakovburtsev.socialnetwork.core.model.User;
 import ru.yakovburtsev.socialnetwork.webclient.auth.AuthorizedUser;
@@ -67,7 +67,7 @@ public class RootController extends AbstractUserController {
                     saveImage(filename, avatar);
                 }
                 return "redirect:login";
-            } catch (DataIntegrityViolationException e) {
+            } catch (DuplicateEmailException e) {
                 result.addError(getDuplicateEmailError(request));
             }
         }
@@ -82,7 +82,7 @@ public class RootController extends AbstractUserController {
                 super.update(user, user.getId());
                 AuthorizedUser.get().update(user);
                 return "redirect:profile";
-            } catch (DataIntegrityViolationException e) {
+            } catch (DuplicateEmailException e) {
                 result.addError(getDuplicateEmailError(request));
             }
         }

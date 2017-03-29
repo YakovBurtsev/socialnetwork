@@ -2,13 +2,15 @@ package ru.yakovburtsev.socialnetwork.user.service;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
+import ru.yakovburtsev.socialnetwork.core.exception.DuplicateEmailException;
+import ru.yakovburtsev.socialnetwork.core.exception.UserNotFoundException;
 import ru.yakovburtsev.socialnetwork.core.model.User;
 import ru.yakovburtsev.socialnetwork.core.model.UserInfo;
 import ru.yakovburtsev.socialnetwork.core.service.UserService;
 import ru.yakovburtsev.socialnetwork.user.repository.UserRepository;
-import ru.yakovburtsev.socialnetwork.user.util.exception.UserNotFoundException;
 
 import java.util.List;
 import java.util.Objects;
@@ -35,7 +37,11 @@ public class UserServiceImpl implements UserService {
     public User save(User user) {
         log.info("save user {}", user);
         Assert.notNull(user, "user must not be null");
-        return repository.save(prepareToSave(user));
+        try {
+            return repository.save(prepareToSave(user));
+        } catch (DataIntegrityViolationException e) {
+            throw new DuplicateEmailException(e.getMessage());
+        }
     }
 
     @Override
