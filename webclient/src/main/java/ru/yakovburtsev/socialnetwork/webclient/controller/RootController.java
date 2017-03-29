@@ -1,5 +1,7 @@
 package ru.yakovburtsev.socialnetwork.webclient.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -9,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.i18n.CookieLocaleResolver;
 import ru.yakovburtsev.socialnetwork.core.model.Role;
 import ru.yakovburtsev.socialnetwork.core.model.User;
 import ru.yakovburtsev.socialnetwork.webclient.auth.AuthorizedUser;
@@ -25,6 +28,15 @@ import static ru.yakovburtsev.socialnetwork.webclient.util.ImageUtil.validateIma
  */
 @Controller
 public class RootController extends AbstractUserController {
+
+    private final MessageSource messageSource;
+    private final CookieLocaleResolver localeResolver;
+
+    @Autowired
+    public RootController(MessageSource messageSource, CookieLocaleResolver localeResolver) {
+        this.messageSource = messageSource;
+        this.localeResolver = localeResolver;
+    }
 
     @GetMapping(value = {"/", "/login"})
     public String login() {
@@ -54,17 +66,16 @@ public class RootController extends AbstractUserController {
                             .getRealPath("/") + "/resources/images/" + user.getId().toString() + ".jpg";
                     saveImage(filename, avatar);
                 }
-
                 return "redirect:login";
             } catch (DataIntegrityViolationException e) {
-                result.addError(new FieldError("user", "email", "Пользователь с таким email уже зарегистрирован"));
+                result.addError(getDuplicateEmailError(request));
             }
         }
         return "register";
     }
 
     @PostMapping(value = "/edit")
-    public String updateProfile(@Valid User user, BindingResult result) {
+    public String updateProfile(@Valid User user, BindingResult result, HttpServletRequest request) {
         if (!result.hasErrors()) {
             try {
                 user.setId(AuthorizedUser.id());
@@ -72,9 +83,15 @@ public class RootController extends AbstractUserController {
                 AuthorizedUser.get().update(user);
                 return "redirect:profile";
             } catch (DataIntegrityViolationException e) {
-                result.addError(new FieldError("user", "email", "Пользователь с таким email уже зарегистрирован"));
+                result.addError(getDuplicateEmailError(request));
             }
         }
         return "register";
+    }
+
+    private FieldError getDuplicateEmailError(HttpServletRequest request) {
+        return new FieldError("user", "email",
+                messageSource.getMessage("exception.duplicate_email", null,
+                        localeResolver.resolveLocale(request)));
     }
 }
