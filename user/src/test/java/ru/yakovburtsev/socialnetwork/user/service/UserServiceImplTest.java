@@ -4,14 +4,14 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import ru.yakovburtsev.socialnetwork.core.exception.DuplicateEmailException;
+import ru.yakovburtsev.socialnetwork.core.exception.UserNotFoundException;
 import ru.yakovburtsev.socialnetwork.core.model.Role;
 import ru.yakovburtsev.socialnetwork.core.model.User;
 import ru.yakovburtsev.socialnetwork.core.service.UserService;
 import ru.yakovburtsev.socialnetwork.user.config.TestConfig;
-import ru.yakovburtsev.socialnetwork.core.exception.UserNotFoundException;
 
 import static java.util.Arrays.asList;
 import static java.util.Collections.emptyList;
@@ -48,7 +48,7 @@ public class UserServiceImplTest {
         USER_MATCHER.assertEquals(newUser, service.get(created.getId()));
     }
 
-    @Test(expected = DataIntegrityViolationException.class)
+    @Test(expected = DuplicateEmailException.class)
     public void testDuplicateMailSave() {
         User duplicate = new User.Builder()
                 .name("name")
