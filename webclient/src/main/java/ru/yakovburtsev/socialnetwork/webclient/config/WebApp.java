@@ -1,52 +1,39 @@
 package ru.yakovburtsev.socialnetwork.webclient.config;
 
 import org.springframework.security.web.context.AbstractSecurityWebApplicationInitializer;
-import org.springframework.web.WebApplicationInitializer;
-import org.springframework.web.context.ContextLoaderListener;
-import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.filter.DelegatingFilterProxy;
 import org.springframework.web.filter.HiddenHttpMethodFilter;
-import org.springframework.web.servlet.DispatcherServlet;
+import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
-import javax.servlet.*;
-import java.util.EnumSet;
+import javax.servlet.Filter;
 
 /**
  * The class is an initializer which in this case acts as replacement of any spring configuration
  * defined in web.xml
  */
-public class WebApp implements WebApplicationInitializer {
-
-    private static final String DISPATCHER_SERVLET_NAME = "dispatcher";
-    private static final String DISPATCHER_SERVLET_MAPPING = "/";
+public class WebApp extends AbstractAnnotationConfigDispatcherServletInitializer {
+    @Override
+    protected Class<?>[] getRootConfigClasses() {
+        return null;
+    }
 
     @Override
-    public void onStartup(ServletContext servletContext) throws ServletException {
-        AnnotationConfigWebApplicationContext rootContext = new AnnotationConfigWebApplicationContext();
-        rootContext.register(SpringWebConfig.class);
-        rootContext.register(HttpInvokerConfig.class);
-        rootContext.register(SpringSecurityConfig.class);
+    protected Class<?>[] getServletConfigClasses() {
+        return new Class[]{SpringWebConfig.class, HttpInvokerConfig.class, SpringSecurityConfig.class};
+    }
 
-        ServletRegistration.Dynamic servlet = servletContext.addServlet(
-                DISPATCHER_SERVLET_NAME, new DispatcherServlet(rootContext)
-        );
-        servlet.setLoadOnStartup(1);
-        servlet.addMapping(DISPATCHER_SERVLET_MAPPING);
+    @Override
+    protected String[] getServletMappings() {
+        return new String[]{"/"};
+    }
 
-        FilterRegistration.Dynamic encodingFilter = servletContext.addFilter("encodingFilter", new CharacterEncodingFilter());
-        encodingFilter.setInitParameter("encoding", "UTF-8");
-        encodingFilter.setInitParameter("forceEncoding", "true");
-        encodingFilter.addMappingForUrlPatterns(null, true, "/*");
-
-        FilterRegistration.Dynamic hiddenHttpMethodFilter = servletContext.addFilter("hiddenHttpMethodFilter", new HiddenHttpMethodFilter());
-        hiddenHttpMethodFilter.addMappingForUrlPatterns(EnumSet.allOf(DispatcherType.class), false, "/*");
-
-        FilterRegistration.Dynamic securityFilter = servletContext.addFilter(
-                AbstractSecurityWebApplicationInitializer.DEFAULT_FILTER_NAME, DelegatingFilterProxy.class
-        );
-        securityFilter.addMappingForUrlPatterns(EnumSet.allOf(DispatcherType.class), false, "/*");
-
-        servletContext.addListener(new ContextLoaderListener(rootContext));
+    @Override
+    protected Filter[] getServletFilters() {
+        return new Filter[]{
+                new CharacterEncodingFilter("UTF-8", true),
+                new HiddenHttpMethodFilter(),
+                new DelegatingFilterProxy(AbstractSecurityWebApplicationInitializer.DEFAULT_FILTER_NAME)
+        };
     }
 }
