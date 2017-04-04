@@ -55,11 +55,6 @@ public class SpringWebConfig extends WebMvcConfigurerAdapter {
         return new CommonsMultipartResolver();
     }
 
-    @Override
-    public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
-        configurer.enable();
-    }
-
     @Bean
     public ReloadableResourceBundleMessageSource messageSource() {
         ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();

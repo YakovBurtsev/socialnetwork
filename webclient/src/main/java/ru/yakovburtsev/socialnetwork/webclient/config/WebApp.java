@@ -20,7 +20,11 @@ public class WebApp extends AbstractAnnotationConfigDispatcherServletInitializer
 
     @Override
     protected Class<?>[] getServletConfigClasses() {
-        return new Class[]{SpringWebConfig.class, HttpInvokerConfig.class, SpringSecurityConfig.class};
+        return new Class[]{
+                SpringWebConfig.class,
+                HttpInvokerConfig.class,
+                SpringSecurityConfig.class
+        };
     }
 
     @Override
