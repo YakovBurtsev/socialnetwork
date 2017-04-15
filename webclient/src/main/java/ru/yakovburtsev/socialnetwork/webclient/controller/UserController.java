@@ -1,3 +1,4 @@
+/*
 package ru.yakovburtsev.socialnetwork.webclient.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,3 +36,4 @@ public class UserController extends AbstractUserController {
         return "register";
     }
 }
+*/

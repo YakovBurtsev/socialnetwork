@@ -1,3 +1,4 @@
+/*
 package ru.yakovburtsev.socialnetwork.webclient.auth;
 
 import org.springframework.security.core.Authentication;
@@ -49,3 +50,4 @@ public class AuthorizedUser extends org.springframework.security.core.userdetail
         return user.toString();
     }
 }
+*/

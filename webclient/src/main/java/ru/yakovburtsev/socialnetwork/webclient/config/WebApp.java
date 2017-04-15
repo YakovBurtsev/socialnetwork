@@ -1,3 +1,4 @@
+/*
 package ru.yakovburtsev.socialnetwork.webclient.config;
 
 import org.springframework.security.web.context.AbstractSecurityWebApplicationInitializer;
@@ -8,10 +9,12 @@ import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatche
 
 import javax.servlet.Filter;
 
+*/
 /**
  * The class is an initializer which in this case acts as replacement of any spring configuration
  * defined in web.xml
- */
+ *//*
+
 public class WebApp extends AbstractAnnotationConfigDispatcherServletInitializer {
     @Override
     protected Class<?>[] getRootConfigClasses() {
@@ -41,3 +44,4 @@ public class WebApp extends AbstractAnnotationConfigDispatcherServletInitializer
         };
     }
 }
+*/

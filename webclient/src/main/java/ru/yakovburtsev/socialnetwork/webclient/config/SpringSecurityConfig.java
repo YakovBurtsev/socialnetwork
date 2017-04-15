@@ -1,3 +1,4 @@
+/*
 package ru.yakovburtsev.socialnetwork.webclient.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,9 +14,11 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+*/
 /**
  * The class is security configuration for the app.
- */
+ *//*
+
 
 @Configuration
 @EnableWebSecurity
@@ -38,8 +41,10 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(WebSecurity web) throws Exception {
         web
                 .ignoring()
-                .antMatchers("/resources/**")
-                .antMatchers("/webjars/**");
+                .antMatchers("/resources*/
+/**")
+                .antMatchers("/webjars*/
+/**");
     }
 
     @Override
@@ -59,10 +64,14 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                     .defaultSuccessUrl("/profile")
                 .and()
                 .authorizeRequests()
-                    .antMatchers("/resources/**", "/webjars/**").permitAll()
-                    .antMatchers("/admin/**").hasRole("ADMIN")
+                    .antMatchers("/resources*/
+/**", "/webjars*/
+/**").permitAll()
+                    .antMatchers("/admin*/
+/**").hasRole("ADMIN")
                     .antMatchers("/register").permitAll()
-                    .antMatchers("/**").authenticated()
+                    .antMatchers("*/
+/**").authenticated()
                 .and()
                 .httpBasic();
     }
@@ -72,3 +81,4 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
         return new RememberMeAuthenticationProvider("rememberMe");
     }
 }
+*/

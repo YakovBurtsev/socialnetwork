@@ -1,3 +1,4 @@
+/*
 package ru.yakovburtsev.socialnetwork.webclient.controller;
 
 
@@ -32,3 +33,4 @@ public class SearchingController extends AbstractUserController {
         return "users";
     }
 }
+*/

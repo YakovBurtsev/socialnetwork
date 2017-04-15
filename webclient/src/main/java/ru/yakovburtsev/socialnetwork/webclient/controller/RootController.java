@@ -14,7 +14,7 @@ import org.springframework.web.servlet.i18n.CookieLocaleResolver;
 import ru.yakovburtsev.socialnetwork.core.exception.DuplicateEmailException;
 import ru.yakovburtsev.socialnetwork.core.model.Role;
 import ru.yakovburtsev.socialnetwork.core.model.User;
-import ru.yakovburtsev.socialnetwork.webclient.auth.AuthorizedUser;
+//import ru.yakovburtsev.socialnetwork.webclient.auth.AuthorizedUser;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -29,21 +29,21 @@ import static ru.yakovburtsev.socialnetwork.webclient.util.ImageUtil.validateIma
 @Controller
 public class RootController extends AbstractUserController {
 
-    private final MessageSource messageSource;
+/*    private final MessageSource messageSource;
     private final CookieLocaleResolver localeResolver;
 
     @Autowired
     public RootController(MessageSource messageSource, CookieLocaleResolver localeResolver) {
         this.messageSource = messageSource;
         this.localeResolver = localeResolver;
-    }
+    }*/
 
     @GetMapping(value = {"/", "/login"})
     public String login() {
-        return "login";
+        return "index";
     }
 
-    @GetMapping(value = "/register")
+/*    @GetMapping(value = "/register")
     public String register(ModelMap model) {
         model.addAttribute("user", new User());
         model.addAttribute("register", true);
@@ -93,5 +93,5 @@ public class RootController extends AbstractUserController {
         return new FieldError("user", "email",
                 messageSource.getMessage("exception.duplicate_email", null,
                         localeResolver.resolveLocale(request)));
-    }
+    }*/
 }
