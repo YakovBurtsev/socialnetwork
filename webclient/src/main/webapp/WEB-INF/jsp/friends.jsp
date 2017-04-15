@@ -45,14 +45,12 @@
                                         </a>
                                     </td>
                                     <td>
-                                        <form method="post" action="friends?friendId=${user.id}">
-                                            <input type="hidden" name="_method" value="delete">
+                                        <form:form method="delete" action="friends?friendId=${user.id}">
                                             <spring:message code="friends.delete" var="delete_from_friends"/>
                                             <input type="submit" class="btn btn-danger" value="${delete_from_friends}">
-                                        </form>
+                                        </form:form>
                                     </td>
                                 </tr>
-
                             </c:forEach>
                         </table>
                     </c:if>
